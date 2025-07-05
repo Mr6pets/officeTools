@@ -100,3 +100,9 @@ jspm_packages/
 # Temporary folders
 tmp/
 temp/
+
+# Electron
+release/
+*.dmg
+*.exe
+*.AppImage

@@ -29,7 +29,16 @@ const UnitConverter: React.FC = () => {
   const [result, setResult] = useState('');
   const [category, setCategory] = useState('length');
 
-  const units = {
+  type UnitDefinition = {
+    name: string;
+    factor: number;
+  };
+
+  type UnitsConfig = {
+    [key: string]: UnitDefinition;
+  };
+
+  const units: Record<string, UnitsConfig> = {
     length: {
       m: { name: '米', factor: 1 },
       cm: { name: '厘米', factor: 100 },

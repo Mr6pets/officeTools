@@ -1,5 +1,6 @@
+// Remove unused imports
 import React, { useState } from 'react';
-import { Card, Button, Input, Space, Checkbox, Typography, Tabs, message, Row, Col } from 'antd';
+import { Card, Button, Input, Space, Checkbox, Typography, Tabs, message } from 'antd';
 import { CopyOutlined, ReloadOutlined } from '@ant-design/icons';
 
 const { Text } = Typography;
@@ -205,39 +206,32 @@ const UUIDGenerator: React.FC = () => {
 
 const RandomDataGenerator: React.FC = () => {
   const [dataType, setDataType] = useState('name');
-  const [result, setResult] = useState('');
+  const [generatedData, setGeneratedData] = useState('');
 
   const generateRandomData = () => {
     switch (dataType) {
       case 'name':
-        const firstNames = ['张', '李', '王', '刘', '陈', '杨', '赵', '黄', '周', '吴'];
-        const lastNames = ['伟', '芳', '娜', '敏', '静', '丽', '强', '磊', '军', '洋'];
-        setResult(firstNames[Math.floor(Math.random() * firstNames.length)] + 
-                 lastNames[Math.floor(Math.random() * lastNames.length)]);
+        const names = ['张三', '李四', '王五', '赵六', '钱七', '孙八', '周九', '吴十'];
+        setGeneratedData(names[Math.floor(Math.random() * names.length)]);
         break;
       case 'email':
         const domains = ['gmail.com', '163.com', 'qq.com', 'hotmail.com'];
-        const username = Math.random().toString(36).substring(2, 10);
-        setResult(`${username}@${domains[Math.floor(Math.random() * domains.length)]}`);
+        const username = Math.random().toString(36).substring(2, 8);
+        const domain = domains[Math.floor(Math.random() * domains.length)];
+        setGeneratedData(`${username}@${domain}`);
         break;
       case 'phone':
-        const prefixes = ['130', '131', '132', '133', '134', '135', '136', '137', '138', '139'];
-        const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
-        const phoneNumber = Math.floor(Math.random() * 100000000).toString().padStart(8, '0');
-        setResult(prefix + phoneNumber);
+        const phoneNumber = Math.floor(Math.random() * 900000000) + 100000000;
+        setGeneratedData(`1${phoneNumber}`);
         break;
       case 'address':
-        const cities = ['北京市', '上海市', '广州市', '深圳市', '杭州市', '南京市'];
-        const districts = ['朝阳区', '海淀区', '西城区', '东城区', '丰台区'];
-        const streets = ['中山路', '人民路', '解放路', '建设路', '和平路'];
-        const city = cities[Math.floor(Math.random() * cities.length)];
-        const district = districts[Math.floor(Math.random() * districts.length)];
-        const street = streets[Math.floor(Math.random() * streets.length)];
+        const streets = ['中山路', '人民路', '解放路', '建设路', '文化路'];
         const houseNumber = Math.floor(Math.random() * 999) + 1;
-        setResult(`${city}${district}${street}${houseNumber}号`);
+        const street = streets[Math.floor(Math.random() * streets.length)];
+        setGeneratedData(`${street}${houseNumber}号`);
         break;
       default:
-        setResult('未知数据类型');
+        break;
     }
   };
 
@@ -275,20 +269,20 @@ const RandomDataGenerator: React.FC = () => {
         </div>
         
         <Button type="primary" onClick={generateRandomData} block>
-          生成随机{dataType === 'name' ? '姓名' : dataType === 'email' ? '邮箱' : dataType === 'phone' ? '手机号' : '地址'}
+          生成随机数据
         </Button>
         
-        {result && (
+        {generatedData && (
           <Input.Group compact>
             <Input 
-              value={result} 
+              value={generatedData} 
               readOnly 
               style={{ width: 'calc(100% - 80px)' }}
             />
             <Button 
               icon={<CopyOutlined />} 
               onClick={() => {
-                navigator.clipboard.writeText(result);
+                navigator.clipboard.writeText(generatedData);
                 message.success('已复制到剪贴板');
               }}
               style={{ width: '80px' }}

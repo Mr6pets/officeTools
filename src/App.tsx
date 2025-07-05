@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Layout, Menu, Typography, theme, ConfigProvider } from 'antd';
+import type { MenuProps } from 'antd';
 import { 
   FileZipOutlined, 
   FileImageOutlined, 
@@ -30,7 +31,7 @@ const App: React.FC = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  const menuItems = [
+  const menuItems: MenuProps['items'] = [
     {
       key: 'file',
       label: '文件处理',

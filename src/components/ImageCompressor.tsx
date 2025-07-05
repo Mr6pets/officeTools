@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Upload, Slider, Button, Card, Progress, message, Space, Typography, Row, Col } from 'antd';
+import { Card, Upload, Button, Space, Slider, Typography, message, Row, Col, Progress } from 'antd';
 import { InboxOutlined, DownloadOutlined, DeleteOutlined } from '@ant-design/icons';
 import { saveAs } from 'file-saver';
 
 const { Dragger } = Upload;
-const { Text, Title } = Typography;
+const { Text } = Typography;
 
 interface CompressedImage {
   original: File;
@@ -15,10 +15,9 @@ interface CompressedImage {
 }
 
 const ImageCompressor: React.FC = () => {
-  const [images, setImages] = useState<CompressedImage[]>([]);
+  const [compressedImages, setCompressedImages] = useState<CompressedImage[]>([]);
   const [quality, setQuality] = useState(80);
   const [processing, setProcessing] = useState(false);
-  const [progress, setProgress] = useState(0);
 
   const formatFileSize = (bytes: number): string => {
     if (bytes === 0) return '0 Bytes';
@@ -65,7 +64,7 @@ const ImageCompressor: React.FC = () => {
         url: URL.createObjectURL(compressed)
       };
       
-      setImages(prev => [...prev, compressedImage]);
+      setCompressedImages(prev => [...prev, compressedImage]);
       message.success(`图片压缩完成，压缩率: ${((1 - compressed.size / file.size) * 100).toFixed(1)}%`);
     } catch (error) {
       message.error('图片压缩失败');
@@ -82,7 +81,7 @@ const ImageCompressor: React.FC = () => {
   };
 
   const downloadAll = () => {
-    images.forEach((image, index) => {
+    compressedImages.forEach((image, index) => {
       setTimeout(() => {
         downloadImage(image);
       }, index * 100);
@@ -90,12 +89,12 @@ const ImageCompressor: React.FC = () => {
   };
 
   const clearAll = () => {
-    images.forEach(image => URL.revokeObjectURL(image.url));
-    setImages([]);
+    compressedImages.forEach(image => URL.revokeObjectURL(image.url));
+    setCompressedImages([]);
   };
 
-  const totalOriginalSize = images.reduce((sum, img) => sum + img.originalSize, 0);
-  const totalCompressedSize = images.reduce((sum, img) => sum + img.compressedSize, 0);
+  const totalOriginalSize = compressedImages.reduce((sum, img) => sum + img.originalSize, 0);
+  const totalCompressedSize = compressedImages.reduce((sum, img) => sum + img.compressedSize, 0);
   const totalSavings = totalOriginalSize - totalCompressedSize;
 
   return (
@@ -120,9 +119,9 @@ const ImageCompressor: React.FC = () => {
             </div>
           </Col>
           <Col span={12}>
-            {images.length > 0 && (
+            {compressedImages.length > 0 && (
               <div>
-                <Text>总计: {images.length} 张图片</Text><br/>
+                <Text>总计: {compressedImages.length} 张图片</Text><br/>
                 <Text>原始大小: {formatFileSize(totalOriginalSize)}</Text><br/>
                 <Text>压缩后: {formatFileSize(totalCompressedSize)}</Text><br/>
                 <Text type="success">节省: {formatFileSize(totalSavings)} ({((totalSavings / totalOriginalSize) * 100).toFixed(1)}%)</Text>
@@ -144,9 +143,9 @@ const ImageCompressor: React.FC = () => {
           <p className="ant-upload-hint">支持 JPG、PNG、WebP 等格式，可批量处理</p>
         </Dragger>
         
-        {processing && <Progress percent={progress} style={{ marginTop: 16 }} />}
+        {processing && <Progress percent={0} style={{ marginTop: 16 }} />}
         
-        {images.length > 0 && (
+        {compressedImages.length > 0 && (
           <Space style={{ marginTop: 16 }}>
             <Button type="primary" icon={<DownloadOutlined />} onClick={downloadAll}>
               下载全部
@@ -158,10 +157,10 @@ const ImageCompressor: React.FC = () => {
         )}
       </Card>
 
-      {images.length > 0 && (
+      {compressedImages.length > 0 && (
         <Card title="压缩结果">
           <Row gutter={[16, 16]}>
-            {images.map((image, index) => (
+            {compressedImages.map((image, index) => (
               <Col key={index} xs={24} sm={12} md={8} lg={6}>
                 <Card
                   size="small"
@@ -184,7 +183,7 @@ const ImageCompressor: React.FC = () => {
                       icon={<DeleteOutlined />} 
                       onClick={() => {
                         URL.revokeObjectURL(image.url);
-                        setImages(prev => prev.filter((_, i) => i !== index));
+                        setCompressedImages(prev => prev.filter((_, i) => i !== index));
                       }}
                     />
                   ]}

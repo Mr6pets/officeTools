@@ -3,15 +3,12 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  server: {
-    port: 5173,
-    host: true
-  },
+  base: './',
   build: {
     outDir: 'dist',
     assetsDir: 'assets'
   },
-  optimizeDeps: {
-    include: ['tesseract.js']
+  server: {
+    port: 5173
   }
 })
