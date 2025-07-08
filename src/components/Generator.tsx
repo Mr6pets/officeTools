@@ -6,22 +6,45 @@ import { CopyOutlined, ReloadOutlined } from '@ant-design/icons';
 const { Text } = Typography;
 const { TabPane } = Tabs;
 
+// 移除未使用的样式常量
+// const modernCardStyle = {
+//   borderRadius: '12px',
+//   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)',
+//   border: '1px solid #e2e8f0',
+//   overflow: 'hidden'
+// };
+
+// const modernButtonStyle = {
+//   borderRadius: '8px',
+//   fontWeight: 500,
+//   height: '40px',
+//   boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)'
+// };
+
+// const modernInputStyle = {
+//   borderRadius: '8px',
+//   border: '1px solid #e2e8f0',
+//   transition: 'all 0.2s'
+// };
+
 const Generator: React.FC = () => {
   return (
+    // 移除错误的style属性
     <Tabs defaultActiveKey="password">
-      <TabPane tab="密码生成" key="password">
+      <TabPane tab="🔐 密码生成" key="password">
         <PasswordGenerator />
       </TabPane>
-      <TabPane tab="UUID生成" key="uuid">
+      <TabPane tab="🆔 UUID生成" key="uuid">
         <UUIDGenerator />
       </TabPane>
-      <TabPane tab="随机数据" key="random">
+      <TabPane tab="📊 随机数据" key="random">
         <RandomDataGenerator />
       </TabPane>
     </Tabs>
   );
 };
 
+// 在PasswordGenerator组件中，移除现代化样式的引用
 const PasswordGenerator: React.FC = () => {
   const [password, setPassword] = useState('');
   const [length, setLength] = useState(12);
@@ -60,7 +83,7 @@ const PasswordGenerator: React.FC = () => {
   };
 
   return (
-    <Card title="密码生成器">
+    <Card title="🔐 密码生成器">
       <Space direction="vertical" style={{ width: '100%' }}>
         <div>
           <Text>密码长度: {length}</Text>
