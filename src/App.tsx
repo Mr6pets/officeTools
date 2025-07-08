@@ -25,11 +25,15 @@ import Calculator from './components/Calculator';
 import Generator from './components/Generator';
 import ColorPicker from './components/ColorPicker';
 import zhCN from 'antd/locale/zh_CN';
+import Settings from './components/Settings';
 
 const { Header, Content, Sider } = Layout;
 const { Title, Text } = Typography;
 
-type MenuKey = 'compress' | 'ocr' | 'imageCompress' | 'pdf' | 'text' | 'qrcode' | 'calculator' | 'generator' | 'colorpicker';
+// 移除重复的导入语句
+// import Settings from './components/Settings';
+
+type MenuKey = 'compress' | 'ocr' | 'imageCompress' | 'pdf' | 'text' | 'qrcode' | 'calculator' | 'generator' | 'colorpicker' | 'settings';
 
 const App: React.FC = () => {
   const [selectedKey, setSelectedKey] = useState<MenuKey>('compress');
@@ -125,7 +129,8 @@ const App: React.FC = () => {
       qrcode: '二维码工具',
       calculator: '计算器',
       generator: '生成器',
-      colorpicker: '颜色取值器'
+      colorpicker: '颜色取值器',
+      settings: '应用设置'
     };
     return titles[selectedKey] || '办公工具';
   };
@@ -140,7 +145,8 @@ const App: React.FC = () => {
       qrcode: '生成和识别二维码',
       calculator: '多功能科学计算器',
       generator: '随机数据生成工具',
-      colorpicker: '专业的颜色选择和转换工具'
+      colorpicker: '专业的颜色选择和转换工具',
+      settings: '个性化配置您的办公工具体验'
     };
     return descriptions[selectedKey] || '高效的办公工具集合';
   };
@@ -165,6 +171,8 @@ const App: React.FC = () => {
         return <Generator />;
       case 'colorpicker':
         return <ColorPicker />;
+      case 'settings':
+        return <Settings />;
       default:
         return <FileCompressor />;
     }
@@ -321,8 +329,18 @@ const App: React.FC = () => {
               </div>
             </div>
             
-            <div style={{ flexShrink: 0 }}> {/* 防止右侧头像被压缩 */}
-              <Dropdown menu={{ items: userMenuItems }} placement="bottomRight">
+            <div style={{ flexShrink: 0 }}>
+              <Dropdown 
+                menu={{ 
+                  items: userMenuItems,
+                  onClick: ({ key }) => {
+                    if (key === 'settings') {
+                      setSelectedKey('settings');
+                    }
+                  }
+                }} 
+                placement="bottomRight"
+              >
                 <Avatar 
                   icon={<UserOutlined />} 
                   style={{ 
