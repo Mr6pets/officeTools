@@ -27,7 +27,7 @@ const Settings: React.FC = () => {
   const handleLogin = async (values: LoginForm) => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:3088/api/login', {
+      const response = await fetch(`${API_BASE_URL}/api/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ const Settings: React.FC = () => {
     
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:3088/api/register', {
+      const response = await fetch(`${API_BASE_URL}/api/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -248,3 +248,5 @@ const Settings: React.FC = () => {
 };
 
 export default Settings;
+// API 配置常量 - 自动根据环境切换
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3088';

@@ -11,7 +11,10 @@ const PORT = 3088;
 const DB_FILE = path.join(__dirname, 'users.db');
 
 // 中间件
-app.use(cors());
+app.use(cors({
+  origin: ['http://officetools.guluwater.com', 'http://localhost:5173'],
+  credentials: true
+}));
 app.use(express.json());
 
 // 初始化数据库
