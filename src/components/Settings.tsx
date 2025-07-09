@@ -27,7 +27,7 @@ const Settings: React.FC = () => {
   const handleLogin = async (values: LoginForm) => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:3001/api/login', {
+      const response = await fetch('http://localhost:3088/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ const Settings: React.FC = () => {
     
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:3001/api/register', {
+      const response = await fetch('http://localhost:3088/api/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

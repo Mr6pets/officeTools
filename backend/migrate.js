@@ -2,9 +2,54 @@ const fs = require('fs');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
-// 文件路径
-const JSON_FILE = path.join(__dirname, 'users.json');
 const DB_FILE = path.join(__dirname, 'users.db');
+
+function migrateDatabase() {
+  console.log('开始数据库迁移...');
+  const db = new sqlite3.Database(DB_FILE);
+  
+  // 检查表结构
+  db.all("PRAGMA table_info(users)", [], (err, columns) => {
+    if (err) {
+      console.error('检查表结构失败:', err);
+      db.close();
+      return;
+    }
+    
+    console.log('当前表结构:', columns.map(col => col.name));
+    
+    const hasEmailColumn = columns.some(col => col.name === 'email');
+    
+    if (!hasEmailColumn) {
+      console.log('添加email列...');
+      db.run('ALTER TABLE users ADD COLUMN email TEXT', (err) => {
+        if (err) {
+          console.error('添加email列失败:', err);
+        } else {
+          console.log('email列添加成功');
+          
+          // 为现有用户添加默认邮箱
+          db.run('UPDATE users SET email = username || "@example.com" WHERE email IS NULL', (err) => {
+            if (err) {
+              console.error('更新默认邮箱失败:', err);
+            } else {
+              console.log('默认邮箱更新完成');
+            }
+            db.close();
+            console.log('迁移完成');
+          });
+        }
+      });
+    } else {
+      console.log('email列已存在，无需迁移');
+      db.close();
+    }
+  });
+}
+
+migrateDatabase();
+
+const JSON_FILE = path.join(__dirname, 'users.json');
 
 async function migrateData() {
   try {
