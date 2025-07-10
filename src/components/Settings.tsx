@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { Card, Typography, Space, Form, Input, Button, message, Tabs, Divider } from 'antd';
+import { Card, Typography, Form, Input, Button, message, Tabs, Divider } from 'antd';
 import { SettingOutlined, UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 
 const { Title, Text } = Typography;
 const { TabPane } = Tabs;
+
+// API 配置常量 - 移到文件顶部
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3088';
 
 interface LoginForm {
   username: string;
@@ -248,5 +251,3 @@ const Settings: React.FC = () => {
 };
 
 export default Settings;
-// API 配置常量 - 自动根据环境切换
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3088';
