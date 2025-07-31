@@ -1,0 +1,14 @@
+node_modules
+build
+dist
+.git
+.trae
+.log
+.electron
+backend
+yarn.lock
+text.txt
+*.db
+*.json.bak
+.env.development
+.env.production

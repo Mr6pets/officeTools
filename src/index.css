@@ -238,6 +238,12 @@ body {
     background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%) !important;
     box-shadow: var(--shadow-lg) !important;
     border-bottom: 2px solid var(--border-color) !important;
+    height: 80px !important;
+    min-height: 80px !important;
+    max-height: 80px !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
   }
   
   .ant-layout-content {
@@ -376,6 +382,7 @@ body {
   
   .ant-tabs-tab {
     color: var(--text-secondary) !important;
+    padding: 12px 15px !important;
   }
   
   .ant-tabs-tab-active {
@@ -484,10 +491,12 @@ body {
     background: var(--primary-color) !important;
     color: #ffffff !important;
     font-weight: 600 !important;
+    padding-right: 16px !important;
   }
   
   .ant-segmented-item-selected .ant-segmented-item-label {
     color: #ffffff !important;
+    padding-right: 8px !important;
   }
   
   .ant-segmented-item-selected span {
@@ -510,30 +519,34 @@ body {
   
   /* 暗黑模式下的内边距优化 */
   .ant-layout-content {
-    padding: 24px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    max-width: 100% !important;
   }
-  
+
   .ant-tabs-tabpane {
-    padding: 20px 16px !important;
+    padding: 16px !important;
+    overflow: hidden !important;
   }
-  
+
   .ant-card-body {
-    padding: 24px !important;
+    padding: 20px !important;
   }
-  
+
   .ant-form-item {
-    margin-bottom: 20px !important;
+    margin-bottom: 16px !important;
   }
-  
+
   .ant-tabs-content-holder {
     padding: 16px !important;
+    overflow: hidden !important;
   }
-  
+
   .ant-segmented {
     padding: 4px !important;
     margin: 16px 0 !important;
   }
-  
+
   .ant-form {
     padding: 16px 0 !important;
   }
@@ -714,10 +727,12 @@ body {
     background: var(--primary-color) !important;
     color: #ffffff !important;
     font-weight: 600 !important;
+    padding-right: 16px !important;
   }
   
   .ant-segmented-item-selected .ant-segmented-item-label {
     color: #ffffff !important;
+    padding-right: 8px !important;
   }
   
   .ant-segmented-item-selected span {
@@ -731,30 +746,34 @@ body {
   
   /* 系统偏好暗黑模式下的内边距优化 */
   .ant-layout-content {
-    padding: 24px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    max-width: 100% !important;
   }
-  
+
   .ant-tabs-tabpane {
-    padding: 20px 16px !important;
+    padding: 16px !important;
+    overflow: hidden !important;
   }
-  
+
   .ant-card-body {
-    padding: 24px !important;
+    padding: 20px !important;
   }
-  
+
   .ant-form-item {
-    margin-bottom: 20px !important;
+    margin-bottom: 16px !important;
   }
-  
+
   .ant-tabs-content-holder {
     padding: 16px !important;
+    overflow: hidden !important;
   }
-  
+
   .ant-segmented {
     padding: 4px !important;
     margin: 16px 0 !important;
   }
-  
+
   .ant-form {
     padding: 16px 0 !important;
   }
@@ -765,31 +784,97 @@ body {
   background: transparent !important;
 }
 
-/* 为主要容器添加内边距，解决空间紧凑问题 */
+/* Header内容布局优化 */
+.ant-layout-header {
+  height: 80px !important;
+  min-height: 80px !important;
+  max-height: 80px !important;
+  overflow: hidden !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.ant-layout-header > div {
+  display: flex !important;
+  align-items: center !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+}
+
+.ant-layout-header h3,
+.ant-layout-header .ant-typography {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 100% !important;
+}
+
+/* 为主要容器设置合适的内边距 */
 .ant-layout-content {
-  padding: 24px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  max-width: 100% !important;
 }
 
 /* 标签页内容区域增加内边距 */
 .ant-tabs-tabpane {
-  padding: 20px 16px !important;
+  padding: 16px !important;
+  overflow: hidden !important;
 }
 
 /* 卡片内容区域增加内边距 */
 .ant-card-body {
-  padding: 24px !important;
+  padding: 20px !important;
 }
 
 /* 表单项增加间距 */
 .ant-form-item {
-  margin-bottom: 20px !important;
+  margin-bottom: 16px !important;
 }
 
-/* 特定内容区域div增加内边距 */
-.fade-in,
-.modern-card,
+/* 特定内容区域div设置合适的内边距 */
+.fade-in {
+  overflow: hidden !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* 修复标题和描述文字溢出问题 */
+.ant-layout-header .ant-typography {
+  max-width: 100% !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  word-break: break-all !important;
+}
+
+.ant-layout-header .ant-typography-caption {
+  max-width: 100% !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  word-break: break-all !important;
+}
+
+/* 确保标题容器不会溢出 */
+.ant-layout-header > div {
+  max-width: 100% !important;
+  overflow: hidden !important;
+}
+
+.ant-layout-header > div > div {
+  max-width: 100% !important;
+  overflow: hidden !important;
+}
+
+.modern-card {
+  overflow: hidden !important;
+  max-width: 100% !important;
+}
+
 .ant-card-body > div {
-  padding: 16px !important;
+  padding: 0 !important;
 }
 
 /* 设置页面主容器增加内边距 */
@@ -843,6 +928,12 @@ body {
     border-bottom: 2px solid var(--border-light) !important;
     position: relative;
     z-index: 15;
+    height: 80px !important;
+    min-height: 80px !important;
+    max-height: 80px !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
   }
   
   .ant-layout-content {

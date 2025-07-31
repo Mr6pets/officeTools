@@ -449,7 +449,9 @@ const App: React.FC = () => {
               
               <div style={{
                 minWidth: 0,
-                flex: 1
+                flex: 1,
+                maxWidth: 'calc(100% - 100px)', // 为右侧按钮预留空间
+                overflow: 'hidden'
               }}>
                 <Title level={3} style={{ 
                   margin: 0, 
@@ -463,7 +465,9 @@ const App: React.FC = () => {
                   background: 'linear-gradient(135deg, #fff, #e2e8f0)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text'
+                  backgroundClip: 'text',
+                  maxWidth: '100%',
+                  width: '100%'
                 }}>
                   {getPageTitle()}
                 </Title>
@@ -471,7 +475,7 @@ const App: React.FC = () => {
                   color: 'rgba(255, 255, 255, 0.9)', 
                   fontSize: '14px',
                   lineHeight: '1.4',
-                  display: 'inline-block',
+                  display: 'block',
                   marginTop: '2px',
                   whiteSpace: 'nowrap',
                   overflow: 'hidden',
@@ -479,7 +483,9 @@ const App: React.FC = () => {
                   background: 'rgba(255, 255, 255, 0.1)',
                   padding: '2px 8px',
                   borderRadius: '12px',
-                  backdropFilter: 'blur(10px)'
+                  backdropFilter: 'blur(10px)',
+                  maxWidth: '100%',
+                  width: 'fit-content'
                 }}>
                   {getPageDescription()}
                 </Text>
@@ -515,17 +521,18 @@ const App: React.FC = () => {
           </Header>
           
           <Content style={{ 
-            margin: '24px', 
-            padding: '32px', 
+            margin: '0', 
+            padding: '24px', 
             background: 'rgba(255, 255, 255, 0.98)',
             backdropFilter: 'blur(20px)',
-            borderRadius: '16px',
-            overflow: 'auto',
-            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
-            border: '1px solid rgba(255, 255, 255, 0.3)',
+            borderRadius: '0',
+            overflow: 'hidden',
+            boxShadow: 'none',
+            border: 'none',
             position: 'relative',
-            height: 'calc(100vh - 128px)'
-          }} className="modern-card glass-effect hover-lift slide-up">
+            height: 'calc(100vh - 80px)',
+            maxWidth: '100%'
+          }} className="modern-card glass-effect">
             <div className="fade-in">
               {renderContent()}
             </div>
