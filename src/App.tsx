@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout, Menu, Typography, ConfigProvider, Avatar, Dropdown } from 'antd';
+import { Layout, Menu, Typography, ConfigProvider, Avatar, Dropdown, theme as antdTheme } from 'antd';
 import type { MenuProps } from 'antd';
 import { 
   FileZipOutlined, 
@@ -15,6 +15,11 @@ import {
   MenuUnfoldOutlined,
   BgColorsOutlined
 } from '@ant-design/icons';
+import { useTheme } from './hooks/useTheme';
+import ThemeToggle from './components/ThemeToggle';
+
+// 导入样式
+import './styles/modern.css';
 import FileCompressor from './components/FileCompressor';
 import ImageOCR from './components/ImageOCR';
 import ImageCompressor from './components/ImageCompressor';
@@ -38,6 +43,7 @@ type MenuKey = 'compress' | 'ocr' | 'imageCompress' | 'pdf' | 'text' | 'qrcode' 
 const App: React.FC = () => {
   const [selectedKey, setSelectedKey] = useState<MenuKey>('compress');
   const [collapsed, setCollapsed] = useState(false);
+  const { theme } = useTheme();
   // 移除未使用的变量
   // const {
   //   token: { colorBgContainer, borderRadiusLG },
@@ -190,56 +196,195 @@ const App: React.FC = () => {
     <ConfigProvider 
       locale={zhCN}
       theme={{
+        algorithm: theme.isDark ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
         token: {
-          colorPrimary: '#6366f1',
+          colorPrimary: theme.isDark ? '#9ca3c4' : '#8b8fb8',
           borderRadius: 8,
-          colorBgContainer: '#ffffff',
+          colorBgContainer: theme.isDark ? '#2d3748' : '#fdfdfe',
+          colorText: theme.isDark ? '#f1f5f9' : '#4a5568',
+          colorTextSecondary: theme.isDark ? '#e2e8f0' : '#718096',
+          colorBorder: theme.isDark ? '#4a5568' : '#e8edf3',
+          colorBgBase: theme.isDark ? '#1a202c' : '#ffffff',
+          colorBgLayout: theme.isDark ? '#1a202c' : '#f8fafc',
         },
         components: {
           Layout: {
-            siderBg: '#ffffff',
-            headerBg: '#ffffff',
+            siderBg: theme.isDark ? 'rgba(26, 32, 44, 0.98)' : 'rgba(255, 255, 255, 0.98)',
+            headerBg: theme.isDark ? 'rgba(45, 55, 72, 0.95)' : 'rgba(139, 143, 184, 0.95)',
+            bodyBg: theme.isDark ? '#1a202c' : '#ffffff',
           },
           Menu: {
             itemBg: 'transparent',
-            itemSelectedBg: '#f0f4ff',
-            itemSelectedColor: '#6366f1',
-            itemHoverBg: '#f8fafc',
+            itemSelectedBg: theme.isDark ? 'rgba(156, 163, 196, 0.2)' : 'rgba(139, 143, 184, 0.1)',
+            itemSelectedColor: theme.isDark ? '#ffffff' : '#8b8fb8',
+            itemHoverBg: theme.isDark ? 'rgba(156, 163, 196, 0.1)' : 'rgba(139, 143, 184, 0.05)',
+            colorText: theme.isDark ? '#e2e8f0' : '#4a5568',
+            colorTextSecondary: theme.isDark ? '#cbd5e1' : '#718096',
+          },
+          Card: {
+            colorBgContainer: theme.isDark ? 'rgba(45, 55, 72, 0.8)' : 'rgba(255, 255, 255, 0.95)',
+            colorBorder: theme.isDark ? 'rgba(74, 85, 104, 0.5)' : 'rgba(226, 232, 240, 0.8)',
+          },
+          Button: {
+            colorText: theme.isDark ? '#f1f5f9' : '#4a5568',
+            colorBorder: theme.isDark ? 'rgba(74, 85, 104, 0.5)' : 'rgba(226, 232, 240, 0.8)',
           },
         },
       }}
     >
-      <Layout style={{ minHeight: '100vh' }}>
+      <Layout style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #e8edf3 0%, #f4f7fa 100%)' }} className="fade-in">
         <Sider 
-          width={280} 
-          collapsed={collapsed}
-          style={{ 
-            background: '#ffffff',
-            boxShadow: '2px 0 8px 0 rgba(29, 35, 42, 0.05)',
-            borderRight: '1px solid #f0f0f0',
-            position: 'relative',
-            zIndex: 10
-          }}
-          className="glass-effect"
-        >
+            width={280} 
+            collapsed={collapsed}
+            style={{ 
+              background: 'rgba(255, 255, 255, 0.95)',
+              backdropFilter: 'blur(20px)',
+              boxShadow: '4px 0 24px rgba(0, 0, 0, 0.1)',
+              borderRight: '1px solid rgba(255, 255, 255, 0.2)',
+              position: 'relative',
+              zIndex: 10
+            }}
+            className="glass-effect"
+          >
           <div style={{ 
-            padding: collapsed ? '16px 8px' : '24px 20px', 
+            padding: collapsed ? '20px 12px' : '32px 24px', 
             textAlign: collapsed ? 'center' : 'left',
-            borderBottom: '1px solid #f0f0f0',
-            background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
-            color: 'white'
-          }}>
+            borderBottom: '1px solid rgba(255, 255, 255, 0.15)',
+            background: `
+              linear-gradient(135deg, #8b8fb8 0%, #7db3c7 50%, #9ca3d4 100%),
+              radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 50%)
+            `,
+            color: 'white',
+            boxShadow: `
+              0 8px 32px rgba(139, 143, 184, 0.3),
+              inset 0 1px 0 rgba(255, 255, 255, 0.2),
+              inset 0 -1px 0 rgba(0, 0, 0, 0.1)
+            `,
+            position: 'relative',
+            overflow: 'hidden'
+          }} className="hover-lift">
+            {/* 装饰性背景元素 */}
+            <div style={{
+              position: 'absolute',
+              top: '-50%',
+              right: '-20%',
+              width: '100px',
+              height: '100px',
+              background: 'radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%)',
+              borderRadius: '50%',
+              pointerEvents: 'none'
+            }} />
+            <div style={{
+              position: 'absolute',
+              bottom: '-30%',
+              left: '-10%',
+              width: '80px',
+              height: '80px',
+              background: 'radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%)',
+              borderRadius: '50%',
+              pointerEvents: 'none'
+            }} />
+            
             {!collapsed ? (
               <>
-                <Title level={3} style={{ margin: 0, color: 'white', fontWeight: 600 }}>
-                  Office Tools
-                </Title>
-                <Text style={{ color: 'rgba(255,255,255,0.8)', fontSize: '13px' }}>
-                  现代化办公工具集
-                </Text>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  marginBottom: '12px',
+                  position: 'relative',
+                  zIndex: 1
+                }}>
+                  <div style={{
+                    fontSize: '28px',
+                    background: 'linear-gradient(135deg, #fff 0%, #f0f4f8 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                    filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))',
+                    lineHeight: 1
+                  }}>
+                    🛠️
+                  </div>
+                  <div>
+                    <Title level={3} style={{ 
+                      margin: 0, 
+                      color: 'white', 
+                      fontWeight: 700,
+                      fontSize: '20px',
+                      letterSpacing: '0.5px',
+                      background: 'linear-gradient(135deg, #fff 0%, #e2e8f0 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                      textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                      lineHeight: '1.2'
+                    }}>
+                      Office Tools
+                    </Title>
+                    <div style={{
+                      fontSize: '11px',
+                      color: 'rgba(255, 255, 255, 0.7)',
+                      fontWeight: 500,
+                      letterSpacing: '0.3px',
+                      marginTop: '2px'
+                    }}>
+                      Professional Suite
+                    </div>
+                  </div>
+                </div>
+                
+                <div style={{
+                  position: 'relative',
+                  zIndex: 1
+                }}>
+                  <Text style={{ 
+                    color: 'rgba(255,255,255,0.95)', 
+                    fontSize: '13px',
+                    fontWeight: 500,
+                    background: `
+                      linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%)
+                    `,
+                    padding: '8px 16px',
+                    borderRadius: '20px',
+                    backdropFilter: 'blur(20px)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    boxShadow: `
+                      0 4px 16px rgba(0, 0, 0, 0.1),
+                      inset 0 1px 0 rgba(255, 255, 255, 0.2)
+                    `,
+                    display: 'inline-block',
+                    letterSpacing: '0.2px'
+                  }}>
+                    现代化办公工具集
+                  </Text>
+                </div>
+                
+                {/* 底部装饰线 */}
+                <div style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  width: '60%',
+                  height: '2px',
+                  background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%)',
+                  borderRadius: '1px'
+                }} />
               </>
             ) : (
-              <Title level={4} style={{ margin: 0, color: 'white' }}>OT</Title>
+              <div style={{
+                position: 'relative',
+                zIndex: 1
+              }}>
+                <Title level={4} style={{ 
+                  margin: 0, 
+                  color: 'white',
+                  fontSize: '24px',
+                  textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'
+                }}>🛠️</Title>
+              </div>
             )}
           </div>
           
@@ -252,23 +397,27 @@ const App: React.FC = () => {
               borderRight: 0, 
               height: 'calc(100vh - 120px)', 
               overflowY: 'auto',
-              padding: '16px 8px'
+              padding: '16px 8px',
+              background: 'transparent',
+              fontSize: '14px'
             }}
+            className="modern-menu"
           />
         </Sider>
         
-        <Layout>
+        <Layout style={{ background: 'transparent' }}>
           <Header style={{ 
             padding: '0 32px', 
-            background: '#ffffff',
+            background: 'linear-gradient(135deg, #8b8fb8 0%, #7a7fb0 100%)',
+            backdropFilter: 'blur(20px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            borderBottom: '1px solid #f0f0f0',
-            boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.05)',
-            height: '80px', // 增加Header高度
-            minHeight: '80px' // 确保最小高度
-          }}>
+            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+            height: '80px',
+            minHeight: '80px'
+          }} className="glass-effect">
             <div style={{ 
               display: 'flex', 
               alignItems: 'center', 
@@ -299,37 +448,46 @@ const App: React.FC = () => {
               </button>
               
               <div style={{
-                minWidth: 0, // 防止内容溢出
-                flex: 1 // 让文字区域占据剩余空间
+                minWidth: 0,
+                flex: 1
               }}>
                 <Title level={3} style={{ 
                   margin: 0, 
-                  color: '#1e293b', 
+                  color: '#fff', 
                   fontWeight: 600,
                   lineHeight: '1.2',
-                  fontSize: '20px',
-                  whiteSpace: 'nowrap', // 防止标题换行
+                  fontSize: '24px',
+                  whiteSpace: 'nowrap',
                   overflow: 'hidden',
-                  textOverflow: 'ellipsis' // 超长文字显示省略号
+                  textOverflow: 'ellipsis',
+                  background: 'linear-gradient(135deg, #fff, #e2e8f0)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
                 }}>
                   {getPageTitle()}
                 </Title>
                 <Text style={{ 
-                  color: '#64748b', 
+                  color: 'rgba(255, 255, 255, 0.9)', 
                   fontSize: '14px',
                   lineHeight: '1.4',
-                  display: 'block',
+                  display: 'inline-block',
                   marginTop: '2px',
                   whiteSpace: 'nowrap',
                   overflow: 'hidden',
-                  textOverflow: 'ellipsis'
+                  textOverflow: 'ellipsis',
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  padding: '2px 8px',
+                  borderRadius: '12px',
+                  backdropFilter: 'blur(10px)'
                 }}>
                   {getPageDescription()}
                 </Text>
               </div>
             </div>
             
-            <div style={{ flexShrink: 0 }}>
+            <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <ThemeToggle variant="button" size="middle" />
               <Dropdown 
                 menu={{ 
                   items: userMenuItems,
@@ -344,10 +502,13 @@ const App: React.FC = () => {
                 <Avatar 
                   icon={<UserOutlined />} 
                   style={{ 
-                    backgroundColor: '#6366f1',
+                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
                     cursor: 'pointer',
-                    boxShadow: '0 2px 8px rgba(99, 102, 241, 0.3)'
-                  }} 
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
+                    border: '2px solid rgba(255, 255, 255, 0.3)',
+                    color: '#fff'
+                  }}
+                  className="hover-lift" 
                 />
               </Dropdown>
             </div>
@@ -356,13 +517,15 @@ const App: React.FC = () => {
           <Content style={{ 
             margin: '24px', 
             padding: '32px', 
-            background: '#ffffff',
-            borderRadius: '12px',
+            background: 'rgba(255, 255, 255, 0.98)',
+            backdropFilter: 'blur(20px)',
+            borderRadius: '16px',
             overflow: 'auto',
-            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)',
+            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
             position: 'relative',
-            height: 'calc(100vh - 128px)' // 调整内容区域高度，考虑Header的新高度
-          }}>
+            height: 'calc(100vh - 128px)'
+          }} className="modern-card glass-effect hover-lift slide-up">
             <div className="fade-in">
               {renderContent()}
             </div>

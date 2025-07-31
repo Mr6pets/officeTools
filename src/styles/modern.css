@@ -1,0 +1,288 @@
+/* 现代化菜单样式 */
+.modern-menu .ant-menu-item {
+  border-radius: 8px !important;
+  margin: 4px 8px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  border: none !important;
+}
+
+.modern-menu .ant-menu-item:not(.ant-menu-item-selected) {
+  color: #4a5568 !important;
+}
+
+.modern-menu .ant-menu-item:not(.ant-menu-item-selected) .ant-menu-title-content {
+  color: #4a5568 !important;
+}
+
+.modern-menu .ant-menu-item:not(.ant-menu-item-selected) .ant-menu-item-icon {
+  color: #6b7280 !important;
+}
+
+.modern-menu .ant-menu-item-group-title {
+  color: #374151 !important;
+  font-weight: 600 !important;
+}
+
+.modern-menu .ant-menu-item:hover {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(6, 182, 212, 0.1)) !important;
+  transform: translateX(4px) !important;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2) !important;
+  color: #374151 !important;
+}
+
+.modern-menu .ant-menu-item:hover .ant-menu-title-content {
+  color: #374151 !important;
+}
+
+.modern-menu .ant-menu-item:hover .ant-menu-item-icon {
+  color: #4f46e5 !important;
+}
+
+.modern-menu .ant-menu-item-selected {
+  background: linear-gradient(135deg, #6366f1, #4f46e5) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+}
+
+.modern-menu .ant-menu-item-selected .ant-menu-title-content {
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+  font-weight: 600 !important;
+}
+
+.modern-menu .ant-menu-item-selected .ant-menu-item-icon {
+  color: #ffffff !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2)) !important;
+}
+
+.modern-menu .ant-menu-item-selected:hover {
+  background: linear-gradient(135deg, #4f46e5, #3730a3) !important;
+  color: #ffffff !important;
+}
+
+.modern-menu .ant-menu-item-selected:hover .ant-menu-title-content {
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* 现代化表单样式 */
+.ant-input:focus,
+.ant-input-password:focus,
+.ant-input:hover,
+.ant-input-password:hover {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1) !important;
+}
+
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper:hover {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1) !important;
+}
+
+/* 现代化标签页样式 */
+.ant-tabs-tab {
+  border-radius: 8px 8px 0 0 !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  font-weight: 500 !important;
+}
+
+.ant-tabs-tab:hover {
+  background: rgba(99, 102, 241, 0.05) !important;
+}
+
+.ant-tabs-tab-active {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(6, 182, 212, 0.1)) !important;
+  border-bottom-color: #6366f1 !important;
+}
+
+.ant-tabs-ink-bar {
+  background: linear-gradient(135deg, #6366f1, #06b6d4) !important;
+  height: 3px !important;
+}
+
+/* 现代化卡片样式增强 */
+.ant-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.ant-card-head {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+.ant-card-head-title {
+  font-weight: 600 !important;
+}
+
+/* 现代化按钮增强 */
+.ant-btn {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  font-weight: 500 !important;
+}
+
+.ant-btn:hover {
+  transform: translateY(-1px) !important;
+}
+
+.ant-btn-primary {
+  box-shadow: 0 2px 4px rgba(99, 102, 241, 0.2) !important;
+}
+
+.ant-btn-primary:hover {
+  box-shadow: 0 4px 8px rgba(99, 102, 241, 0.3) !important;
+}
+
+/* 现代化头像样式 */
+.ant-avatar {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.ant-avatar:hover {
+  transform: scale(1.05) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* 现代化下拉菜单 */
+.ant-dropdown {
+  border-radius: 12px !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(20px) !important;
+}
+
+.ant-dropdown-menu {
+  border-radius: 12px !important;
+  padding: 8px !important;
+}
+
+.ant-dropdown-menu-item {
+  border-radius: 8px !important;
+  margin: 2px 0 !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.ant-dropdown-menu-item:hover {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(6, 182, 212, 0.1)) !important;
+  transform: translateX(2px) !important;
+}
+
+/* 现代化表单标签 */
+.ant-form-item-label > label {
+  font-weight: 500 !important;
+  color: #374151 !important;
+}
+
+/* 现代化消息提示 */
+.ant-message {
+  top: 80px !important;
+}
+
+.ant-message-notice {
+  border-radius: 12px !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+  backdrop-filter: blur(20px) !important;
+}
+
+/* 响应式优化 */
+@media (max-width: 768px) {
+  .modern-menu .ant-menu-item:hover {
+    transform: none !important;
+  }
+  
+  .ant-btn:hover {
+    transform: none !important;
+  }
+  
+  .ant-avatar:hover {
+    transform: none !important;
+  }
+}
+
+/* 主题系统适配 */
+:root.dark .modern-menu .ant-menu-item:not(.ant-menu-item-selected),
+[data-theme="dark"] .modern-menu .ant-menu-item:not(.ant-menu-item-selected) {
+  color: var(--text-secondary) !important;
+}
+
+:root.dark .modern-menu .ant-menu-item:not(.ant-menu-item-selected) .ant-menu-title-content,
+[data-theme="dark"] .modern-menu .ant-menu-item:not(.ant-menu-item-selected) .ant-menu-title-content {
+  color: var(--text-secondary) !important;
+}
+
+:root.dark .modern-menu .ant-menu-item:not(.ant-menu-item-selected) .ant-menu-item-icon,
+[data-theme="dark"] .modern-menu .ant-menu-item:not(.ant-menu-item-selected) .ant-menu-item-icon {
+  color: var(--text-muted) !important;
+}
+
+:root.dark .modern-menu .ant-menu-item:hover,
+[data-theme="dark"] .modern-menu .ant-menu-item:hover {
+  background: linear-gradient(135deg, rgba(156, 163, 196, 0.2), rgba(125, 179, 199, 0.2)) !important;
+  color: var(--text-primary) !important;
+}
+
+:root.dark .modern-menu .ant-menu-item:hover .ant-menu-title-content,
+[data-theme="dark"] .modern-menu .ant-menu-item:hover .ant-menu-title-content {
+  color: var(--text-primary) !important;
+}
+
+:root.dark .modern-menu .ant-menu-item:hover .ant-menu-item-icon,
+[data-theme="dark"] .modern-menu .ant-menu-item:hover .ant-menu-item-icon {
+  color: var(--text-primary) !important;
+}
+
+/* 系统偏好暗黑模式（仅在auto模式下生效） */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .modern-menu .ant-menu-item:not(.ant-menu-item-selected) {
+    color: var(--text-secondary) !important;
+  }
+  
+  :root:not([data-theme="light"]) .modern-menu .ant-menu-item:not(.ant-menu-item-selected) .ant-menu-title-content {
+    color: var(--text-secondary) !important;
+  }
+  
+  :root:not([data-theme="light"]) .modern-menu .ant-menu-item:not(.ant-menu-item-selected) .ant-menu-item-icon {
+    color: var(--text-muted) !important;
+  }
+  
+  :root:not([data-theme="light"]) .modern-menu .ant-menu-item:hover {
+    background: linear-gradient(135deg, rgba(156, 163, 196, 0.2), rgba(125, 179, 199, 0.2)) !important;
+    color: var(--text-primary) !important;
+  }
+  
+  :root:not([data-theme="light"]) .modern-menu .ant-menu-item:hover .ant-menu-title-content {
+    color: var(--text-primary) !important;
+  }
+  
+  :root:not([data-theme="light"]) .modern-menu .ant-menu-item:hover .ant-menu-item-icon {
+    color: var(--text-primary) !important;
+  }
+}
+
+/* 加载动画优化 */
+.ant-spin-dot {
+  font-size: 20px !important;
+}
+
+.ant-spin-dot-item {
+  background: linear-gradient(135deg, #6366f1, #06b6d4) !important;
+}
+
+/* 滚动条美化 */
+.ant-layout-sider::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ant-layout-sider::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+}
+
+.ant-layout-sider::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #6366f1, #06b6d4);
+  border-radius: 3px;
+}
+
+.ant-layout-sider::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #4f46e5, #0891b2);
+}
