@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Card, Input, Button, Select, Space, Typography, Row, Col, App, Tabs } from 'antd';
-import { CopyOutlined, UploadOutlined, DownloadOutlined, KeyOutlined } from '@ant-design/icons';
+import { CopyOutlined, KeyOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
 
 const { Title, Text } = Typography;
@@ -299,14 +299,6 @@ const CryptoTools: React.FC = () => {
                   readOnly
                   rows={6}
                   style={{ marginTop: '8px' }}
-                  suffix={
-                    <Button 
-                      type="link" 
-                      icon={<CopyOutlined />}
-                      onClick={() => copyToClipboard(outputText)}
-                      disabled={!outputText}
-                    />
-                  }
                 />
                 {outputText && (
                   <div style={{ marginTop: '8px', textAlign: 'right' }}>
@@ -379,19 +371,23 @@ const CryptoTools: React.FC = () => {
             <Row gutter={[16, 16]}>
               <Col span={24}>
                 <Text strong>哈希结果：</Text>
-                <Input
+                <Input.TextArea
                   value={hashOutput}
                   readOnly
-                  style={{ marginTop: '8px' }}
-                  suffix={
+                  rows={4}
+                  style={{ marginTop: '10px' }}
+                />
+                {hashOutput && (
+                  <div style={{ marginTop: '8px', textAlign: 'right' }}>
                     <Button 
                       type="link" 
                       icon={<CopyOutlined />}
                       onClick={() => copyToClipboard(hashOutput)}
-                      disabled={!hashOutput}
-                    />
-                  }
-                />
+                    >
+                      复制哈希结果
+                    </Button>
+                  </div>
+                )}
               </Col>
             </Row>
           </Card>

@@ -5,19 +5,18 @@ import ImageOCR from '../components/ImageOCR';
 import ImageCompressor from '../components/ImageCompressor';
 import ImageEditor from '../components/ImageEditor';
 import PDFTools from '../components/PDFTools';
-import TextTools from '../components/TextTools';
 import QRCodeTools from '../components/QRCodeTools';
 import CryptoTools from '../components/CryptoTools';
 import ColorConverter from '../components/ColorConverter';
 import Generator from '../components/Generator';
-import JSONFormatter from '../components/JSONFormatter';
+import Calculator from '../components/Calculator';
 import NetworkTools from '../components/NetworkTools';
 import RegexTester from '../components/RegexTester';
-import TimestampConverter from '../components/TimestampConverter';
 import MarkdownEditor from '../components/MarkdownEditor';
 import CodeFormatter from '../components/CodeFormatter';
 import TextDiff from '../components/TextDiff';
 
+// 在相应的工具分类中添加Generator和Calculator
 export const toolCategories: ToolCategory[] = [
   {
     key: 'file',
@@ -90,114 +89,125 @@ export const toolCategories: ToolCategory[] = [
     ]
   },
   {
-    key: 'text',
-    name: '文本工具',
-    icon: 'EditOutlined',
+    key: 'utility',
+    name: '实用工具',
+    icon: 'tool',
     tools: [
       {
-        id: 'textTools',
-        name: '文本处理',
-        icon: 'FontSizeOutlined',
-        category: 'text',
-        description: '文本格式化、编码转换、统计等',
-        component: TextTools
+        id: 'generator',
+        name: '生成器',
+        description: '生成密码、UUID、随机数等',
+        icon: 'tool',
+        category: 'generator',
+        component: Generator,
+        keywords: ['生成', '密码', 'UUID', '随机']
       },
       {
-        id: 'jsonFormatter',
-        name: 'JSON格式化',
-        icon: 'CodeOutlined',
-        category: 'text',
-        description: 'JSON格式化、压缩、验证和统计分析',
-        component: JSONFormatter
+        id: 'calculator',
+        name: '计算器',
+        description: '科学计算器',
+        icon: 'calculator',
+        category: 'calculator',
+        component: Calculator,
+        keywords: ['计算', '数学', '科学']
+      }
+    ]
+  },
+  {
+    key: 'development',
+    name: '开发工具',
+    icon: 'code',
+    tools: [
+      {
+        id: 'code-formatter',
+        name: '代码格式化',
+        description: '格式化和美化各种编程语言的代码',
+        icon: 'code',
+        category: 'development',
+        component: CodeFormatter,
+        keywords: ['代码', '格式化', '美化', 'prettier', 'format']
       },
       {
-        id: 'regexTester',
-        name: '正则表达式测试器',
-        icon: 'BugOutlined',
-        category: 'text',
-        description: '正则表达式测试、匹配、替换和语法验证',
-        component: RegexTester
-      },
+        id: 'regex-tester',
+        name: '正则表达式测试',
+        description: '测试和验证正则表达式',
+        icon: 'code',
+        category: 'development',
+        component: RegexTester,
+        keywords: ['正则', '表达式', '测试', 'regex']
+      }
+    ]
+  },
+  {
+    key: 'text',
+    name: '文本工具',
+    icon: 'file-text',
+    tools: [
       {
-        id: 'timestamp-converter',
-        name: '时间戳转换',
-        description: '时间戳与日期时间的双向转换工具',
-        icon: '🕐',
-        category: '开发工具',
-        component: TimestampConverter,
-        keywords: ['时间戳', '日期', '转换', '时间', 'timestamp', 'datetime']
+        id: 'text-diff',
+        name: '文本对比',
+        description: '对比两个文本的差异，支持逐行对比',
+        icon: 'diff',
+        category: 'text',
+        component: TextDiff,
+        keywords: ['文本', '对比', '差异', 'diff']
       },
       {
         id: 'markdown-editor',
         name: 'Markdown编辑器',
-        description: '实时预览的Markdown编辑工具',
-        icon: '📝',
-        category: '文本工具',
+        description: '实时预览的Markdown编辑器',
+        icon: 'edit',
+        category: 'text',
         component: MarkdownEditor,
-        keywords: ['markdown', '编辑器', '预览', '文档', 'md']
-      },
-      {
-        id: 'code-formatter',
-        name: '代码格式化工具',
-        description: '支持多种编程语言的代码格式化',
-        icon: '🎨',
-        category: '开发工具',
-        component: CodeFormatter,
-        keywords: ['代码', '格式化', '美化', 'prettier', 'javascript', 'css']
-      },
-      {
-        id: 'text-diff',
-        name: '文本差异对比',
-        description: '文本内容对比和差异显示工具',
-        icon: '🔍',
-        category: '文本工具',
-        component: TextDiff,
-        keywords: ['差异', '对比', '文本', 'diff', '比较']
-      },
+        keywords: ['markdown', '编辑器', '预览']
+      }
     ]
   },
   {
     key: 'network',
     name: '网络工具',
-    icon: 'GlobalOutlined',
+    icon: 'global',
     tools: [
       {
-        id: 'networkTools',
-        name: '网络工具集',
-        icon: 'WifiOutlined',
+        id: 'network-tools',
+        name: '网络工具',
+        description: 'URL编码、Base64编码、IP查询等网络相关工具',
+        icon: 'global',
         category: 'network',
-        description: 'URL编码、Base64编码、IP查询、端口检测、Hash计算',
-        component: NetworkTools
+        component: NetworkTools,
+        keywords: ['网络', 'URL', 'Base64', 'IP', '编码']
       }
     ]
   },
   {
-    key: 'calculator',
-    name: '计算工具',
-    icon: 'CalculatorOutlined',
+    key: 'security',
+    name: '安全工具',
+    icon: 'safety',
     tools: [
       {
-        id: 'calculator',
-        name: '多功能计算器',
-        icon: 'CalculatorOutlined',
-        category: 'calculator',
-        description: '单位转换、汇率计算、个税计算等',
-        component: Calculator
+        id: 'crypto-tools',
+        name: '加密工具',
+        description: 'MD5、SHA、AES等加密解密工具',
+        icon: 'safety',
+        category: 'security',
+        component: CryptoTools,
+        keywords: ['加密', '解密', 'MD5', 'SHA', 'AES']
       }
     ]
   },
   {
-    key: 'generator',
-    name: '生成工具',
-    icon: 'ThunderboltOutlined',
+    key: 'design',
+    name: '设计工具',
+    icon: 'bg-colors',
     tools: [
       {
-        id: 'generator',
-        name: '数据生成器',
-        icon: 'ThunderboltOutlined',
-        category: 'generator',
-        description: '密码生成、UUID生成、随机数据等',
-        component: Generator
+        id: 'color-converter',
+        name: '颜色转换',
+        description: '在不同颜色格式之间转换',
+        icon: 'bg-colors',
+        category: 'design',
+        component: ColorConverter,
+        keywords: ['颜色', '转换', 'RGB', 'HEX', 'HSL']
       }
     ]
   }
@@ -217,22 +227,3 @@ export const getToolById = (id: string) => {
 export const getToolsByCategory = (category: string) => {
   return getAllTools().filter(tool => tool.category === category);
 };
-
-  {
-    id: 'crypto-tools',
-    name: '加密解密工具',
-    description: '支持AES、DES、Base64等多种加密算法',
-    icon: '🔐',
-    category: '安全工具',
-    component: CryptoTools,
-    keywords: ['加密', '解密', 'AES', 'DES', 'Base64', 'MD5', 'SHA', '哈希']
-  },
-  {
-    id: 'color-converter',
-    name: '颜色转换工具',
-    description: 'RGB、HEX、HSL等颜色格式转换',
-    icon: '🎨',
-    category: '设计工具',
-    component: ColorConverter,
-    keywords: ['颜色', '转换', 'RGB', 'HEX', 'HSL', 'HSV', 'CMYK']
-  },

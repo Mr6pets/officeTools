@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Card, Input, Button, Space, Typography, Row, Col, message, Switch, Select } from 'antd';
-import { CopyOutlined, SwapOutlined, ClearOutlined, UploadOutlined } from '@ant-design/icons';
+import { CopyOutlined, SwapOutlined, ClearOutlined } from '@ant-design/icons';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;

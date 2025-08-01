@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Card, Typography, Form, Input, Button, message, Tabs, Divider, Space } from 'antd';
-import { SettingOutlined, UserOutlined, LockOutlined, MailOutlined, BgColorsOutlined } from '@ant-design/icons';
+import { Card, Form, Input, Button, Space, Typography, message, Tabs, Divider } from 'antd';
+import { UserOutlined, LockOutlined, MailOutlined, BgColorsOutlined } from '@ant-design/icons';
 import ThemeToggle from './ThemeToggle';
 
 const { Title, Text } = Typography;
-const { TabPane } = Tabs;
 
 // API 配置常量 - 移到文件顶部
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3088';

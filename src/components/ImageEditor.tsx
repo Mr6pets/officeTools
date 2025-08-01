@@ -8,7 +8,6 @@ import {
   Col,
   Space,
   message,
-  Divider,
   Input,
   Select,
   ColorPicker,
@@ -22,10 +21,9 @@ import {
   SwapOutlined,
   UndoOutlined,
   RedoOutlined,
-  FontSizeOutlined,
-  BgColorsOutlined
+  FontSizeOutlined
 } from '@ant-design/icons';
-import type { UploadFile } from 'antd';
+
 
 interface FilterSettings {
   brightness: number;
@@ -48,7 +46,6 @@ interface TextOverlay {
 const ImageEditor: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [originalImage, setOriginalImage] = useState<HTMLImageElement | null>(null);
-  const [currentImage, setCurrentImage] = useState<HTMLImageElement | null>(null);
   const [filters, setFilters] = useState<FilterSettings>({
     brightness: 100,
     contrast: 100,
@@ -169,7 +166,6 @@ const ImageEditor: React.FC = () => {
       const img = new Image();
       img.onload = () => {
         setOriginalImage(img);
-        setCurrentImage(img);
         
         const canvas = canvasRef.current;
         if (canvas) {

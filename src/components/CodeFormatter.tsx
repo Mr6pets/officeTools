@@ -39,40 +39,37 @@ const CodeFormatter: React.FC = () => {
   });
   const [minifyCode, setMinifyCode] = useState<string>('');
 
-  // 支持的语言配置
-  const languageConfigs = {
-    javascript: { parser: 'babel', plugins: [parserBabel] },
-    typescript: { parser: 'typescript', plugins: [parserTypescript] },
-    jsx: { parser: 'babel', plugins: [parserBabel] },
-    tsx: { parser: 'typescript', plugins: [parserTypescript] },
-    html: { parser: 'html', plugins: [parserHtml] },
-    css: { parser: 'css', plugins: [parserCss] },
-    scss: { parser: 'scss', plugins: [parserCss] },
-    less: { parser: 'less', plugins: [parserCss] },
-    json: { parser: 'json', plugins: [parserBabel] },
-    markdown: { parser: 'markdown', plugins: [parserMarkdown] }
+  const getParserConfig = (lang: string) => {
+    const configs: { [key: string]: { parser: string; plugins: any[] } } = {
+      javascript: { parser: 'babel', plugins: [parserBabel] },
+      typescript: { parser: 'typescript', plugins: [parserTypescript] },
+      html: { parser: 'html', plugins: [parserHtml] },
+      css: { parser: 'css', plugins: [parserCss] },
+      markdown: { parser: 'markdown', plugins: [parserMarkdown] },
+    };
+    return configs[lang];
   };
 
   // 格式化代码
-  const formatCode = () => {
+  const formatCode = async () => {
     if (!inputCode.trim()) {
-      message.error('请输入要格式化的代码');
+      message.warning('请输入要格式化的代码');
       return;
     }
-
+  
     try {
-      const config = languageConfigs[language as keyof typeof languageConfigs];
+      const config = getParserConfig(language);
       if (!config) {
         message.error('不支持的语言类型');
         return;
       }
-
-      const formatted = prettier.format(inputCode, {
+  
+      const formatted = await prettier.format(inputCode, {
         parser: config.parser,
         plugins: config.plugins,
         ...formatOptions
       });
-
+  
       setOutputCode(formatted);
       message.success('代码格式化成功');
     } catch (error) {

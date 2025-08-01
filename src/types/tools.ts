@@ -4,9 +4,10 @@ export interface ToolConfig {
   id: string;
   name: string;
   icon: string;
-  category: 'document' | 'image' | 'text' | 'utility' | 'calculator' | 'generator';
+  category: 'document' | 'image' | 'text' | 'utility' | 'calculator' | 'generator' | 'network' | 'security' | 'design' | 'development';
   description: string;
   component: React.ComponentType;
+  keywords?: string[]; // 添加可选的keywords属性
 }
 
 export interface ToolCategory {

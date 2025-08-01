@@ -358,7 +358,6 @@ const App: React.FC = () => {
             contentBg: theme.isDark ? '#2d3748' : '#ffffff',
             headerBg: theme.isDark ? '#2d3748' : '#ffffff',
             footerBg: theme.isDark ? '#2d3748' : '#ffffff',
-            maskBg: theme.isDark ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 0, 0, 0.45)',
           },
           Dropdown: {
             colorBgElevated: theme.isDark ? '#2d3748' : '#ffffff',
@@ -390,10 +389,7 @@ const App: React.FC = () => {
             colorBgElevated: theme.isDark ? '#2d3748' : '#ffffff',
             colorBorder: theme.isDark ? 'rgba(74, 85, 104, 0.5)' : 'rgba(226, 232, 240, 0.8)',
           },
-          TimePicker: {
-            colorBgElevated: theme.isDark ? '#2d3748' : '#ffffff',
-            colorBorder: theme.isDark ? 'rgba(74, 85, 104, 0.5)' : 'rgba(226, 232, 240, 0.8)',
-          },
+
         },
       }}
     >
@@ -419,38 +415,86 @@ const App: React.FC = () => {
               className="glass-effect"
             >
             <div style={{ 
-              padding: collapsed ? '20px 12px' : '32px 24px', 
+              padding: collapsed ? '24px 16px' : '40px 32px', 
               textAlign: collapsed ? 'center' : 'left',
               borderBottom: theme.isDark 
-                ? '1px solid rgba(74, 85, 104, 0.3)' 
-                : '1px solid rgba(255, 255, 255, 0.15)',
+                ? '1px solid rgba(74, 85, 104, 0.2)' 
+                : '1px solid rgba(255, 255, 255, 0.12)',
               background: theme.isDark 
                 ? `
-                  linear-gradient(135deg, #4a5568 0%, #2d3748 50%, #1a202c 100%),
-                  radial-gradient(circle at 20% 80%, rgba(156, 163, 196, 0.1) 0%, transparent 50%),
-                  radial-gradient(circle at 80% 20%, rgba(156, 163, 196, 0.08) 0%, transparent 50%)
+                  linear-gradient(135deg, #4a5568 0%, #2d3748 30%, #1a202c 70%, #0f1419 100%),
+                  radial-gradient(ellipse at 25% 75%, rgba(156, 163, 196, 0.15) 0%, transparent 60%),
+                  radial-gradient(ellipse at 75% 25%, rgba(156, 163, 196, 0.12) 0%, transparent 60%),
+                  radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 70%)
                 `
                 : `
-                  linear-gradient(135deg, #8b8fb8 0%, #7db3c7 50%, #9ca3d4 100%),
-                  radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-                  radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 50%)
+                  linear-gradient(135deg, #8b8fb8 0%, #7db3c7 25%, #9ca3d4 50%, #a8b2e5 75%, #b5c4f0 100%),
+                  radial-gradient(ellipse at 25% 75%, rgba(255, 255, 255, 0.15) 0%, transparent 60%),
+                  radial-gradient(ellipse at 75% 25%, rgba(255, 255, 255, 0.12) 0%, transparent 60%),
+                  radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08) 0%, transparent 70%)
                 `,
               color: 'white',
               boxShadow: theme.isDark 
                 ? `
-                  0 8px 32px rgba(0, 0, 0, 0.4),
-                  inset 0 1px 0 rgba(156, 163, 196, 0.2),
-                  inset 0 -1px 0 rgba(0, 0, 0, 0.2)
+                  0 16px 48px rgba(0, 0, 0, 0.5),
+                  0 8px 24px rgba(0, 0, 0, 0.3),
+                  inset 0 1px 0 rgba(156, 163, 196, 0.25),
+                  inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+                  inset 1px 0 0 rgba(156, 163, 196, 0.1),
+                  inset -1px 0 0 rgba(0, 0, 0, 0.2)
                 `
                 : `
-                  0 8px 32px rgba(139, 143, 184, 0.3),
-                  inset 0 1px 0 rgba(255, 255, 255, 0.2),
-                  inset 0 -1px 0 rgba(0, 0, 0, 0.1)
+                  0 16px 48px rgba(139, 143, 184, 0.25),
+                  0 8px 24px rgba(139, 143, 184, 0.15),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                  inset 0 -1px 0 rgba(0, 0, 0, 0.08),
+                  inset 1px 0 0 rgba(255, 255, 255, 0.15),
+                  inset -1px 0 0 rgba(0, 0, 0, 0.05)
                 `,
               position: 'relative',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+              backdropFilter: 'blur(30px)'
             }} className="hover-lift">
               {/* 装饰性背景元素 */}
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: theme.isDark 
+                  ? `
+                    radial-gradient(ellipse 120% 80% at 30% 40%, rgba(156, 163, 196, 0.08) 0%, transparent 60%),
+                    radial-gradient(ellipse 100% 60% at 70% 60%, rgba(156, 163, 196, 0.06) 0%, transparent 50%),
+                    linear-gradient(45deg, transparent 30%, rgba(156, 163, 196, 0.02) 50%, transparent 70%),
+                    conic-gradient(from 45deg at 80% 20%, transparent 0deg, rgba(156, 163, 196, 0.03) 90deg, transparent 180deg)
+                  `
+                  : `
+                    radial-gradient(ellipse 120% 80% at 30% 40%, rgba(255, 255, 255, 0.12) 0%, transparent 60%),
+                    radial-gradient(ellipse 100% 60% at 70% 60%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+                    linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.04) 50%, transparent 70%),
+                    conic-gradient(from 45deg at 80% 20%, transparent 0deg, rgba(255, 255, 255, 0.05) 90deg, transparent 180deg)
+                  `,
+                pointerEvents: 'none',
+                opacity: 0.8
+              }} />
+              
+              {/* 动态光效元素 */}
+              <div style={{
+                position: 'absolute',
+                top: '-50%',
+                left: '-50%',
+                width: '200%',
+                height: '200%',
+                background: theme.isDark
+                  ? 'conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(156, 163, 196, 0.02) 60deg, transparent 120deg, rgba(156, 163, 196, 0.01) 180deg, transparent 240deg, rgba(156, 163, 196, 0.02) 300deg, transparent 360deg)'
+                  : 'conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(255, 255, 255, 0.03) 60deg, transparent 120deg, rgba(255, 255, 255, 0.02) 180deg, transparent 240deg, rgba(255, 255, 255, 0.03) 300deg, transparent 360deg)',
+                animation: 'rotate 20s linear infinite',
+                pointerEvents: 'none',
+                opacity: 0.6
+              }} />
+              
               <div style={{
                 position: 'absolute',
                 top: '-50%',
@@ -498,13 +542,19 @@ const App: React.FC = () => {
                         margin: 0, 
                         color: 'white', 
                         fontWeight: 700,
-                        fontSize: '20px',
-                        letterSpacing: '0.5px',
-                        background: 'linear-gradient(135deg, #fff 0%, #e2e8f0 100%)',
+                        fontSize: collapsed ? '20px' : '32px',
+                        letterSpacing: '-0.02em',
+                        background: theme.isDark
+                          ? 'linear-gradient(135deg, #ffffff 0%, #e2e8f0 25%, #cbd5e0 50%, #a0aec0 75%, #718096 100%)'
+                          : 'linear-gradient(135deg, #ffffff 0%, #f7fafc 20%, #edf2f7 40%, #e2e8f0 60%, #cbd5e0 80%, #a0aec0 100%)',
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
                         backgroundClip: 'text',
-                        textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                        backgroundSize: '200% 100%',
+                        animation: 'shimmer 3s ease-in-out infinite',
+                        textShadow: theme.isDark
+                          ? '0 4px 8px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2)'
+                          : '0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.05)',
                         lineHeight: '1.2'
                       }}>
                         Office Tools
@@ -516,7 +566,7 @@ const App: React.FC = () => {
                         letterSpacing: '0.3px',
                         marginTop: '2px'
                       }}>
-                        Professional Suite
+                        多功能办公工具集
                       </div>
                     </div>
                   </div>
@@ -525,29 +575,8 @@ const App: React.FC = () => {
                     position: 'relative',
                     zIndex: 1
                   }}>
-                    <Text style={{ 
-                      color: 'rgba(255,255,255,0.95)', 
-                      fontSize: '13px',
-                      fontWeight: 500,
-                      background: `
-                        linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%)
-                      `,
-                      padding: '8px 16px',
-                      borderRadius: '20px',
-                      backdropFilter: 'blur(20px)',
-                      border: '1px solid rgba(255, 255, 255, 0.2)',
-                      boxShadow: `
-                        0 4px 16px rgba(0, 0, 0, 0.1),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.2)
-                      `,
-                      display: 'inline-block',
-                      letterSpacing: '0.2px'
-                    }}>
-                      <div className="hero-section">
-                        <h1>多功能办公工具集</h1>
-                        <p>集成文件处理、图片工具、文本处理、计算工具、网络工具、开发工具等多种实用功能</p>
-                      </div>
-                    </Text>
+                    <div className="hero-section">
+                    </div>
                   </div>
                   
                   {/* 底部装饰线 */}
@@ -649,38 +678,51 @@ const App: React.FC = () => {
                   overflow: 'hidden'
                 }}>
                   <Title level={3} style={{ 
-                    margin: 0, 
-                    color: '#fff', 
-                    fontWeight: 600,
-                    lineHeight: '1.2',
-                    fontSize: '24px',
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    background: 'linear-gradient(135deg, #fff, #e2e8f0)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                    maxWidth: '100%',
-                    width: '100%'
-                  }}>
+                  margin: 0, 
+                  color: '#fff', 
+                  fontWeight: 700,
+                  lineHeight: '1.2',
+                  fontSize: '28px',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  background: theme.isDark
+                    ? 'linear-gradient(135deg, #ffffff 0%, #e2e8f0 25%, #cbd5e0 50%, #a0aec0 75%, #718096 100%)'
+                    : 'linear-gradient(135deg, #ffffff 0%, #f7fafc 20%, #edf2f7 40%, #e2e8f0 60%, #cbd5e0 80%, #a0aec0 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  backgroundSize: '200% 100%',
+                  animation: 'shimmer 3s ease-in-out infinite',
+                  textShadow: theme.isDark
+                    ? '0 4px 8px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2)'
+                    : '0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.05)',
+                  letterSpacing: '-0.02em',
+                  maxWidth: '100%',
+                  width: '100%'
+                }}>
                     {getPageTitle()}
                   </Title>
                   <Text style={{ 
-                    color: 'rgba(255, 255, 255, 0.9)', 
-                    fontSize: '14px',
-                    lineHeight: '1.4',
+                    color: 'rgba(255, 255, 255, 0.95)', 
+                    fontSize: '15px',
+                    lineHeight: '1.5',
                     display: 'block',
-                    marginTop: '2px',
+                    marginTop: '4px',
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
-                    background: 'rgba(255, 255, 255, 0.1)',
-                    padding: '2px 8px',
-                    borderRadius: '12px',
-                    backdropFilter: 'blur(10px)',
+                    background: 'rgba(255, 255, 255, 0.15)',
+                    padding: '4px 12px',
+                    borderRadius: '16px',
+                    backdropFilter: 'blur(15px)',
                     maxWidth: '100%',
-                    width: 'fit-content'
+                    width: 'fit-content',
+                    fontWeight: '500',
+                    letterSpacing: '0.02em',
+                    textShadow: '0 2px 4px rgba(0, 0, 0, 0.15)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
                   }}>
                     {getPageDescription()}
                   </Text>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Button, Space, Typography, Row, Col, message, Upload, Divider, Input } from 'antd';
-import { useTheme } from '../hooks/useTheme';
+import { Card, Button, Space, Typography, message, Upload, Divider, Input } from 'antd';
 import { 
   BoldOutlined, 
   ItalicOutlined, 
@@ -149,7 +148,6 @@ const markdownStyles = `
 `;
 
 const MarkdownEditor: React.FC = () => {
-  const { theme } = useTheme();
   const [markdown, setMarkdown] = useState<string>(`# Markdown编辑器
 
 这是一个功能强大的Markdown编辑器，支持实时预览。
@@ -196,15 +194,10 @@ function hello() {
   const [htmlContent, setHtmlContent] = useState<string>('');
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const [viewMode, setViewMode] = useState<'split' | 'edit' | 'preview'>('split');
-  const [cursorPosition, setCursorPosition] = useState<number>(0);
-
-  // 配置marked选项
   useEffect(() => {
     marked.setOptions({
       breaks: true,
-      gfm: true,
-      headerIds: true,
-      headerPrefix: 'heading-'
+      gfm: true
     });
   }, []);
 

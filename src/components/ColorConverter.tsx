@@ -32,9 +32,10 @@ const ColorConverter: React.FC = () => {
     } : null;
   };
 
-  const rgbToHex = (r: number, g: number, b: number): string => {
-    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-  };
+  // 移除未使用的 rgbToHex 函数
+  // const rgbToHex = (r: number, g: number, b: number): string => {
+  //   return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+  // };
 
   const rgbToHsl = (r: number, g: number, b: number): { h: number; s: number; l: number } => {
     r /= 255;

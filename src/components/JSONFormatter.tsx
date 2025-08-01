@@ -24,7 +24,8 @@ import {
 const { TextArea } = Input;
 const { Text } = Typography;
 
-interface JSONFormatterProps {}
+// 移除未使用的接口
+// interface JSONFormatterProps {}
 
 const JSONFormatter: React.FC = () => {
   const { message } = App.useApp();

@@ -4,28 +4,25 @@ import {
   Input,
   Button,
   Space,
+  Typography,
   Row,
   Col,
-  Tabs,
-  Typography,
   Table,
-  Tag,
-  Tooltip,
-  Select,
-  App
+  message,
+  Tabs,
+  Tag
 } from 'antd';
 import {
-  LinkOutlined,
+  CopyOutlined,
+  SearchOutlined,
   GlobalOutlined,
   WifiOutlined,
-  CopyOutlined,
   ClearOutlined,
-  SearchOutlined,
-  ReloadOutlined
+  LinkOutlined
 } from '@ant-design/icons';
 
+const { Text } = Typography;
 const { TextArea } = Input;
-const { Text, Title } = Typography;
 
 interface IPInfo {
   ip: string;
@@ -39,7 +36,6 @@ interface IPInfo {
 }
 
 const NetworkTools: React.FC = () => {
-  const { message } = App.useApp();
   
   // URL编码/解码
   const [urlInput, setUrlInput] = useState<string>('');
