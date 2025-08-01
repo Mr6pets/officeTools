@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Input, Button, Select, Space, Typography, Row, Col, message, Upload, Tabs } from 'antd';
+import { Card, Input, Button, Select, Space, Typography, Row, Col, App, Tabs } from 'antd';
 import { CopyOutlined, UploadOutlined, DownloadOutlined, KeyOutlined } from '@ant-design/icons';
 import CryptoJS from 'crypto-js';
 
@@ -9,6 +9,7 @@ const { TextArea } = Input;
 const { TabPane } = Tabs;
 
 const CryptoTools: React.FC = () => {
+  const { message } = App.useApp();
   const [algorithm, setAlgorithm] = useState<string>('AES');
   const [mode, setMode] = useState<'encrypt' | 'decrypt'>('encrypt');
   const [inputText, setInputText] = useState<string>('');

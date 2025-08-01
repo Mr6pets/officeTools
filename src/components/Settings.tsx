@@ -160,243 +160,241 @@ const Settings: React.FC = () => {
     );
   }
 
+  const tabItems = [
+    {
+      key: 'theme',
+      label: '🎨 主题设置',
+      children: (
+        <div style={{ padding: '24px 0', textAlign: 'center' }}>
+          <BgColorsOutlined style={{ fontSize: '48px', color: '#6366f1', marginBottom: '16px' }} />
+          <Title level={4} style={{ marginBottom: '24px', color: '#374151' }}>
+            个性化主题设置
+          </Title>
+          <Text type="secondary" style={{ display: 'block', marginBottom: '32px' }}>
+            选择您喜欢的主题模式，让工具更符合您的使用习惯
+          </Text>
+          
+          <div style={{ 
+            maxWidth: '400px', 
+            margin: '0 auto',
+            padding: '24px',
+            background: 'rgba(99, 102, 241, 0.05)',
+            borderRadius: '12px',
+            border: '1px solid rgba(99, 102, 241, 0.1)'
+          }}>
+            <ThemeToggle variant="segmented" size="large" />
+          </div>
+          
+          <div style={{ marginTop: '24px', textAlign: 'left', maxWidth: '400px', margin: '24px auto 0' }}>
+            <Title level={5} style={{ marginBottom: '12px', color: '#374151' }}>主题说明：</Title>
+            <Space direction="vertical" size="small" style={{ width: '100%' }}>
+              <Text type="secondary">☀️ <strong>浅色模式</strong>：适合白天使用，界面明亮清晰</Text>
+              <Text type="secondary">🌙 <strong>暗黑模式</strong>：适合夜晚使用，减少眼部疲劳</Text>
+              <Text type="secondary">🕐 <strong>自动模式</strong>：根据时间自动切换（6:00-18:00为浅色，18:00-6:00为暗黑）</Text>
+            </Space>
+          </div>
+        </div>
+      )
+    },
+    {
+      key: 'login',
+      label: '🔐 登录',
+      children: (
+        <Form
+          form={loginForm}
+          name="login"
+          onFinish={handleLogin}
+          layout="vertical"
+          size="large"
+          style={{ marginTop: '16px' }}
+        >
+          <Form.Item
+            name="username"
+            label={<span style={{ fontWeight: '500', color: '#374151' }}>用户名/邮箱</span>}
+            rules={[{ required: true, message: '请输入用户名或邮箱' }]}
+          >
+            <Input 
+              prefix={<UserOutlined />} 
+              placeholder="请输入用户名或邮箱" 
+              size="large"
+              style={{ 
+                borderRadius: '8px',
+                border: '1px solid #d1d5db',
+                transition: 'all 0.3s'
+              }}
+              className="hover-lift"
+            />
+          </Form.Item>
+          
+          <Form.Item
+            name="password"
+            label={<span style={{ fontWeight: '500', color: '#374151' }}>密码</span>}
+            rules={[{ required: true, message: '请输入密码' }]}
+          >
+            <Input.Password 
+              prefix={<LockOutlined />} 
+              placeholder="请输入密码" 
+              size="large"
+              style={{ 
+                borderRadius: '8px',
+                border: '1px solid #d1d5db',
+                transition: 'all 0.3s'
+              }}
+              className="hover-lift"
+            />
+          </Form.Item>
+          
+          <Form.Item style={{ marginTop: '24px' }}>
+            <Button 
+              type="primary" 
+              htmlType="submit" 
+              loading={loading}
+              size="large"
+              style={{
+                width: '100%',
+                background: 'linear-gradient(135deg, #6366f1, #4f46e5)',
+                border: 'none',
+                borderRadius: '8px',
+                height: '48px',
+                fontSize: '16px',
+                fontWeight: '600',
+                boxShadow: '0 4px 12px rgba(99, 102, 241, 0.3)'
+              }}
+              className="modern-button hover-lift"
+            >
+              🚀 立即登录
+            </Button>
+          </Form.Item>
+        </Form>
+      )
+    },
+    {
+      key: 'register',
+      label: '📝 注册',
+      children: (
+        <Form
+          form={registerForm}
+          name="register"
+          onFinish={handleRegister}
+          layout="vertical"
+          size="large"
+          style={{ marginTop: '16px' }}
+        >
+          <Form.Item
+            name="username"
+            label={<span style={{ fontWeight: '500', color: '#374151' }}>用户名</span>}
+            rules={[
+              { required: true, message: '请输入用户名' },
+              { min: 3, message: '用户名至少3个字符' }
+            ]}
+          >
+            <Input 
+              prefix={<UserOutlined />} 
+              placeholder="请输入用户名" 
+              size="large"
+              style={{ 
+                borderRadius: '8px',
+                border: '1px solid #d1d5db',
+                transition: 'all 0.3s'
+              }}
+              className="hover-lift"
+            />
+          </Form.Item>
+          
+          <Form.Item
+            name="email"
+            label={<span style={{ fontWeight: '500', color: '#374151' }}>邮箱</span>}
+            rules={[
+              { required: true, message: '请输入邮箱' },
+              { type: 'email', message: '请输入有效的邮箱地址' }
+            ]}
+          >
+            <Input 
+              prefix={<MailOutlined />} 
+              placeholder="请输入邮箱" 
+              size="large"
+              style={{ 
+                borderRadius: '8px',
+                border: '1px solid #d1d5db',
+                transition: 'all 0.3s'
+              }}
+              className="hover-lift"
+            />
+          </Form.Item>
+          
+          <Form.Item
+            name="password"
+            label={<span style={{ fontWeight: '500', color: '#374151' }}>密码</span>}
+            rules={[
+              { required: true, message: '请输入密码' },
+              { min: 6, message: '密码至少6个字符' }
+            ]}
+          >
+            <Input.Password 
+              prefix={<LockOutlined />} 
+              placeholder="请输入密码" 
+              size="large"
+              style={{ 
+                borderRadius: '8px',
+                border: '1px solid #d1d5db',
+                transition: 'all 0.3s'
+              }}
+              className="hover-lift"
+            />
+          </Form.Item>
+          
+          <Form.Item
+            name="confirmPassword"
+            label={<span style={{ fontWeight: '500', color: '#374151' }}>确认密码</span>}
+            rules={[{ required: true, message: '请确认密码' }]}
+          >
+            <Input.Password 
+              prefix={<LockOutlined />} 
+              placeholder="请再次输入密码" 
+              size="large"
+              style={{ 
+                borderRadius: '8px',
+                border: '1px solid #d1d5db',
+                transition: 'all 0.3s'
+              }}
+              className="hover-lift"
+            />
+          </Form.Item>
+          
+          <Form.Item style={{ marginTop: '24px' }}>
+            <Button 
+              type="primary" 
+              htmlType="submit" 
+              loading={loading}
+              size="large"
+              style={{
+                width: '100%',
+                background: 'linear-gradient(135deg, #06b6d4, #0891b2)',
+                border: 'none',
+                borderRadius: '8px',
+                height: '48px',
+                fontSize: '16px',
+                fontWeight: '600',
+                boxShadow: '0 4px 12px rgba(6, 182, 212, 0.3)'
+              }}
+              className="modern-button hover-lift"
+            >
+              ✨ 创建账户
+            </Button>
+          </Form.Item>
+        </Form>
+      )
+    }
+  ];
+
   return (
-    <div style={{ maxWidth: '900px', margin: '0 auto', padding: '32px' }} className="fade-in">
-      <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-        <SettingOutlined style={{ fontSize: '48px', color: '#6366f1', marginBottom: '16px' }} />
-        <Title level={2} style={{ 
-          textAlign: 'center', 
-          marginBottom: '40px',
-          background: 'linear-gradient(135deg, #6366f1, #06b6d4)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          backgroundClip: 'text',
-          fontSize: '32px',
-          fontWeight: '700'
-        }} className="gradient-text">用户中心</Title>
-        <Text type="secondary">登录或注册您的账户</Text>
-      </div>
-      
+    <div>
       <Card className="modern-card hover-lift" style={{ 
         borderRadius: '16px',
         border: '1px solid #e2e8f0',
         boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
       }}>
-        <Tabs defaultActiveKey="theme" centered>
-          <TabPane tab="🎨 主题设置" key="theme">
-            <div style={{ padding: '24px 0', textAlign: 'center' }}>
-              <BgColorsOutlined style={{ fontSize: '48px', color: '#6366f1', marginBottom: '16px' }} />
-              <Title level={4} style={{ marginBottom: '24px', color: '#374151' }}>
-                个性化主题设置
-              </Title>
-              <Text type="secondary" style={{ display: 'block', marginBottom: '32px' }}>
-                选择您喜欢的主题模式，让工具更符合您的使用习惯
-              </Text>
-              
-              <div style={{ 
-                maxWidth: '400px', 
-                margin: '0 auto',
-                padding: '24px',
-                background: 'rgba(99, 102, 241, 0.05)',
-                borderRadius: '12px',
-                border: '1px solid rgba(99, 102, 241, 0.1)'
-              }}>
-                <ThemeToggle variant="segmented" size="large" />
-              </div>
-              
-              <div style={{ marginTop: '24px', textAlign: 'left', maxWidth: '400px', margin: '24px auto 0' }}>
-                <Title level={5} style={{ marginBottom: '12px', color: '#374151' }}>主题说明：</Title>
-                <Space direction="vertical" size="small" style={{ width: '100%' }}>
-                  <Text type="secondary">☀️ <strong>浅色模式</strong>：适合白天使用，界面明亮清晰</Text>
-                  <Text type="secondary">🌙 <strong>暗黑模式</strong>：适合夜晚使用，减少眼部疲劳</Text>
-                  <Text type="secondary">🕐 <strong>自动模式</strong>：根据时间自动切换（6:00-18:00为浅色，18:00-6:00为暗黑）</Text>
-                </Space>
-              </div>
-            </div>
-          </TabPane>
-          <TabPane tab="🔐 登录" key="login">
-            <Form
-              form={loginForm}
-              name="login"
-              onFinish={handleLogin}
-              layout="vertical"
-              size="large"
-              style={{ marginTop: '16px' }}
-            >
-              <Form.Item
-                name="username"
-                label={<span style={{ fontWeight: '500', color: '#374151' }}>用户名/邮箱</span>}
-                rules={[{ required: true, message: '请输入用户名或邮箱' }]}
-              >
-                <Input 
-                  prefix={<UserOutlined />} 
-                  placeholder="请输入用户名或邮箱" 
-                  size="large"
-                  style={{ 
-                    borderRadius: '8px',
-                    border: '1px solid #d1d5db',
-                    transition: 'all 0.3s'
-                  }}
-                  className="hover-lift"
-                />
-              </Form.Item>
-              
-              <Form.Item
-                name="password"
-                label={<span style={{ fontWeight: '500', color: '#374151' }}>密码</span>}
-                rules={[{ required: true, message: '请输入密码' }]}
-              >
-                <Input.Password 
-                  prefix={<LockOutlined />} 
-                  placeholder="请输入密码" 
-                  size="large"
-                  style={{ 
-                    borderRadius: '8px',
-                    border: '1px solid #d1d5db',
-                    transition: 'all 0.3s'
-                  }}
-                  className="hover-lift"
-                />
-              </Form.Item>
-              
-              <Form.Item style={{ marginTop: '24px' }}>
-                <Button 
-                  type="primary" 
-                  htmlType="submit" 
-                  loading={loading}
-                  size="large"
-                  style={{
-                    width: '100%',
-                    background: 'linear-gradient(135deg, #6366f1, #4f46e5)',
-                    border: 'none',
-                    borderRadius: '8px',
-                    height: '48px',
-                    fontSize: '16px',
-                    fontWeight: '600',
-                    boxShadow: '0 4px 12px rgba(99, 102, 241, 0.3)'
-                  }}
-                  className="modern-button hover-lift"
-                >
-                  🚀 立即登录
-                </Button>
-              </Form.Item>
-            </Form>
-          </TabPane>
-          
-          <TabPane tab="📝 注册" key="register">
-            <Form
-              form={registerForm}
-              name="register"
-              onFinish={handleRegister}
-              layout="vertical"
-              size="large"
-              style={{ marginTop: '16px' }}
-            >
-              <Form.Item
-                name="username"
-                label={<span style={{ fontWeight: '500', color: '#374151' }}>用户名</span>}
-                rules={[
-                  { required: true, message: '请输入用户名' },
-                  { min: 3, message: '用户名至少3个字符' }
-                ]}
-              >
-                <Input 
-                  prefix={<UserOutlined />} 
-                  placeholder="请输入用户名" 
-                  size="large"
-                  style={{ 
-                    borderRadius: '8px',
-                    border: '1px solid #d1d5db',
-                    transition: 'all 0.3s'
-                  }}
-                  className="hover-lift"
-                />
-              </Form.Item>
-              
-              <Form.Item
-                name="email"
-                label={<span style={{ fontWeight: '500', color: '#374151' }}>邮箱</span>}
-                rules={[
-                  { required: true, message: '请输入邮箱' },
-                  { type: 'email', message: '请输入有效的邮箱地址' }
-                ]}
-              >
-                <Input 
-                  prefix={<MailOutlined />} 
-                  placeholder="请输入邮箱" 
-                  size="large"
-                  style={{ 
-                    borderRadius: '8px',
-                    border: '1px solid #d1d5db',
-                    transition: 'all 0.3s'
-                  }}
-                  className="hover-lift"
-                />
-              </Form.Item>
-              
-              <Form.Item
-                name="password"
-                label={<span style={{ fontWeight: '500', color: '#374151' }}>密码</span>}
-                rules={[
-                  { required: true, message: '请输入密码' },
-                  { min: 6, message: '密码至少6个字符' }
-                ]}
-              >
-                <Input.Password 
-                  prefix={<LockOutlined />} 
-                  placeholder="请输入密码" 
-                  size="large"
-                  style={{ 
-                    borderRadius: '8px',
-                    border: '1px solid #d1d5db',
-                    transition: 'all 0.3s'
-                  }}
-                  className="hover-lift"
-                />
-              </Form.Item>
-              
-              <Form.Item
-                name="confirmPassword"
-                label={<span style={{ fontWeight: '500', color: '#374151' }}>确认密码</span>}
-                rules={[{ required: true, message: '请确认密码' }]}
-              >
-                <Input.Password 
-                  prefix={<LockOutlined />} 
-                  placeholder="请再次输入密码" 
-                  size="large"
-                  style={{ 
-                    borderRadius: '8px',
-                    border: '1px solid #d1d5db',
-                    transition: 'all 0.3s'
-                  }}
-                  className="hover-lift"
-                />
-              </Form.Item>
-              
-              <Form.Item style={{ marginTop: '24px' }}>
-                <Button 
-                  type="primary" 
-                  htmlType="submit" 
-                  loading={loading}
-                  size="large"
-                  style={{
-                    width: '100%',
-                    background: 'linear-gradient(135deg, #06b6d4, #0891b2)',
-                    border: 'none',
-                    borderRadius: '8px',
-                    height: '48px',
-                    fontSize: '16px',
-                    fontWeight: '600',
-                    boxShadow: '0 4px 12px rgba(6, 182, 212, 0.3)'
-                  }}
-                  className="modern-button hover-lift"
-                >
-                  ✨ 创建账户
-                </Button>
-              </Form.Item>
-            </Form>
-          </TabPane>
-        </Tabs>
+        <Tabs defaultActiveKey="theme" centered items={tabItems} />
       </Card>
     </div>
   );

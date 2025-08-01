@@ -43,6 +43,7 @@ interface RegexFlag {
 }
 
 const RegexTester: React.FC = () => {
+  const { message } = App.useApp();
   const [pattern, setPattern] = useState<string>('');
   const [testString, setTestString] = useState<string>('');
   const [flags, setFlags] = useState<string[]>(['g']);

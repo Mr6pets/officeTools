@@ -26,7 +26,7 @@ const { Text } = Typography;
 
 interface JSONFormatterProps {}
 
-const JSONFormatter: React.FC<JSONFormatterProps> = () => {
+const JSONFormatter: React.FC = () => {
   const { message } = App.useApp();
   const [inputJson, setInputJson] = useState<string>('');
   const [outputJson, setOutputJson] = useState<string>('');
@@ -43,7 +43,7 @@ const JSONFormatter: React.FC<JSONFormatterProps> = () => {
 
   // 格式化JSON
   const formatJSON = () => {
-    if (!inputJson.trim()) {
+    if (!inputJson.trim()) {  // 修复：应该是 inputJson 而不是 inputJSON
       message.warning('请输入JSON内容');
       return;
     }

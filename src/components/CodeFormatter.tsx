@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Input, Button, Select, Space, Typography, Row, Col, message, Tabs } from 'antd';
+import { Card, Input, Button, Select, Space, Typography, Row, Col, App, Tabs } from 'antd';
 import { CopyOutlined, FormatPainterOutlined, ClearOutlined } from '@ant-design/icons';
 import prettier from 'prettier/standalone';
 import parserBabel from 'prettier/parser-babel';
@@ -24,6 +24,7 @@ interface FormatOptions {
 }
 
 const CodeFormatter: React.FC = () => {
+  const { message } = App.useApp();
   const [inputCode, setInputCode] = useState<string>('');
   const [outputCode, setOutputCode] = useState<string>('');
   const [language, setLanguage] = useState<string>('javascript');

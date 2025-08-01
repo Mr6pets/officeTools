@@ -4,7 +4,6 @@ import {
   Input,
   Button,
   Space,
-  message,
   Row,
   Col,
   Tabs,
@@ -12,7 +11,8 @@ import {
   Table,
   Tag,
   Tooltip,
-  Select
+  Select,
+  App
 } from 'antd';
 import {
   LinkOutlined,
@@ -26,7 +26,6 @@ import {
 
 const { TextArea } = Input;
 const { Text, Title } = Typography;
-const { TabPane } = Tabs;
 
 interface IPInfo {
   ip: string;
@@ -40,6 +39,8 @@ interface IPInfo {
 }
 
 const NetworkTools: React.FC = () => {
+  const { message } = App.useApp();
+  
   // URL编码/解码
   const [urlInput, setUrlInput] = useState<string>('');
   const [urlOutput, setUrlOutput] = useState<string>('');
@@ -131,7 +132,6 @@ const NetworkTools: React.FC = () => {
   const getMyIP = async () => {
     setIpLoading(true);
     try {
-      // 模拟IP查询（实际应用中需要调用真实的IP查询API）
       const response = await fetch('https://api.ipify.org?format=json');
       const data = await response.json();
       setIpInput(data.ip);
@@ -153,8 +153,6 @@ const NetworkTools: React.FC = () => {
     
     setIpLoading(true);
     try {
-      // 模拟IP信息查询（实际应用中需要调用真实的IP地理位置API）
-      // 这里使用模拟数据
       const mockData: IPInfo = {
         ip: targetIP,
         country: '中国',
@@ -190,7 +188,6 @@ const NetworkTools: React.FC = () => {
     
     setPortLoading(true);
     try {
-      // 模拟端口检测（实际应用中需要后端支持）
       const results = ports.map(port => ({
         port: parseInt(port),
         status: Math.random() > 0.5 ? 'open' : 'closed',
@@ -291,308 +288,248 @@ const NetworkTools: React.FC = () => {
     },
   ];
 
+  const tabItems = [
+    {
+      key: 'url',
+      label: 'URL编码/解码',
+      children: (
+        <Space direction="vertical" style={{ width: '100%' }}>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Text strong>输入文本：</Text>
+              <TextArea
+                value={urlInput}
+                onChange={(e) => setUrlInput(e.target.value)}
+                placeholder="请输入要编码/解码的URL"
+                rows={4}
+                style={{ marginTop: 8 }}
+              />
+            </Col>
+            <Col span={12}>
+              <Text strong>输出结果：</Text>
+              <TextArea
+                value={urlOutput}
+                readOnly
+                placeholder="编码/解码结果将显示在这里"
+                rows={4}
+                style={{ marginTop: 8 }}
+              />
+            </Col>
+          </Row>
+          <Space>
+            <Button type="primary" icon={<LinkOutlined />} onClick={encodeURL}>
+              URL编码
+            </Button>
+            <Button icon={<LinkOutlined />} onClick={decodeURL}>
+              URL解码
+            </Button>
+            <Button icon={<CopyOutlined />} onClick={() => copyToClipboard(urlOutput)}>
+              复制结果
+            </Button>
+            <Button icon={<ClearOutlined />} onClick={() => { setUrlInput(''); setUrlOutput(''); }}>
+              清空
+            </Button>
+          </Space>
+        </Space>
+      )
+    },
+    {
+      key: 'base64',
+      label: 'Base64编码/解码',
+      children: (
+        <Space direction="vertical" style={{ width: '100%' }}>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Text strong>输入文本：</Text>
+              <TextArea
+                value={base64Input}
+                onChange={(e) => setBase64Input(e.target.value)}
+                placeholder="请输入要编码/解码的文本"
+                rows={4}
+                style={{ marginTop: 8 }}
+              />
+            </Col>
+            <Col span={12}>
+              <Text strong>输出结果：</Text>
+              <TextArea
+                value={base64Output}
+                readOnly
+                placeholder="编码/解码结果将显示在这里"
+                rows={4}
+                style={{ marginTop: 8 }}
+              />
+            </Col>
+          </Row>
+          <Space>
+            <Button type="primary" onClick={encodeBase64}>
+              Base64编码
+            </Button>
+            <Button onClick={decodeBase64}>
+              Base64解码
+            </Button>
+            <Button icon={<CopyOutlined />} onClick={() => copyToClipboard(base64Output)}>
+              复制结果
+            </Button>
+            <Button icon={<ClearOutlined />} onClick={() => { setBase64Input(''); setBase64Output(''); }}>
+              清空
+            </Button>
+          </Space>
+        </Space>
+      )
+    },
+    {
+      key: 'ip',
+      label: 'IP查询',
+      children: (
+        <Space direction="vertical" style={{ width: '100%' }}>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Text strong>IP地址：</Text>
+              <Input
+                value={ipInput}
+                onChange={(e) => setIpInput(e.target.value)}
+                placeholder="请输入IP地址"
+                style={{ marginTop: 8 }}
+              />
+            </Col>
+          </Row>
+          <Space>
+            <Button type="primary" icon={<SearchOutlined />} onClick={() => queryIPInfo()} loading={ipLoading}>
+              查询IP信息
+            </Button>
+            <Button icon={<GlobalOutlined />} onClick={getMyIP} loading={ipLoading}>
+              获取我的IP
+            </Button>
+          </Space>
+          {ipInfo && (
+            <Card title="IP信息" style={{ marginTop: 16 }}>
+              <Row gutter={[16, 8]}>
+                <Col span={8}><Text strong>IP地址：</Text>{ipInfo.ip}</Col>
+                <Col span={8}><Text strong>国家：</Text>{ipInfo.country}</Col>
+                <Col span={8}><Text strong>地区：</Text>{ipInfo.region}</Col>
+                <Col span={8}><Text strong>城市：</Text>{ipInfo.city}</Col>
+                <Col span={8}><Text strong>ISP：</Text>{ipInfo.isp}</Col>
+                <Col span={8}><Text strong>时区：</Text>{ipInfo.timezone}</Col>
+                <Col span={8}><Text strong>纬度：</Text>{ipInfo.lat}</Col>
+                <Col span={8}><Text strong>经度：</Text>{ipInfo.lon}</Col>
+              </Row>
+            </Card>
+          )}
+        </Space>
+      )
+    },
+    {
+      key: 'port',
+      label: '端口检测',
+      children: (
+        <Space direction="vertical" style={{ width: '100%' }}>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Text strong>主机地址：</Text>
+              <Input
+                value={hostInput}
+                onChange={(e) => setHostInput(e.target.value)}
+                placeholder="请输入主机地址或域名"
+                style={{ marginTop: 8 }}
+              />
+            </Col>
+            <Col span={12}>
+              <Text strong>端口列表：</Text>
+              <Input
+                value={portInput}
+                onChange={(e) => setPortInput(e.target.value)}
+                placeholder="请输入端口，多个端口用逗号分隔"
+                style={{ marginTop: 8 }}
+              />
+            </Col>
+          </Row>
+          <Space>
+            <Button type="primary" icon={<WifiOutlined />} onClick={checkPorts} loading={portLoading}>
+              检测端口
+            </Button>
+            <Button onClick={() => setPortInput('21,22,23,25,53,80,110,143,443,993,995,3389')}>
+              常用端口
+            </Button>
+          </Space>
+          {portResults.length > 0 && (
+            <Table
+              columns={portColumns}
+              dataSource={portResults}
+              rowKey="port"
+              pagination={false}
+              style={{ marginTop: 16 }}
+            />
+          )}
+        </Space>
+      )
+    },
+    {
+      key: 'hash',
+      label: 'Hash计算',
+      children: (
+        <Space direction="vertical" style={{ width: '100%' }}>
+          <Row gutter={16}>
+            <Col span={24}>
+              <Text strong>输入文本：</Text>
+              <TextArea
+                value={hashInput}
+                onChange={(e) => setHashInput(e.target.value)}
+                placeholder="请输入要计算Hash的文本"
+                rows={4}
+                style={{ marginTop: 8 }}
+              />
+            </Col>
+          </Row>
+          <Space>
+            <Button type="primary" onClick={calculateHash}>
+              计算Hash
+            </Button>
+            <Button icon={<ClearOutlined />} onClick={() => { setHashInput(''); setHashResults(null); }}>
+              清空
+            </Button>
+          </Space>
+          {hashResults && (
+            <Card title="Hash结果" style={{ marginTop: 16 }}>
+              <Space direction="vertical" style={{ width: '100%' }}>
+                <Row gutter={16}>
+                  <Col span={2}><Text strong>MD5：</Text></Col>
+                  <Col span={20}>
+                    <Input value={hashResults.md5} readOnly />
+                  </Col>
+                  <Col span={2}>
+                    <Button icon={<CopyOutlined />} onClick={() => copyToClipboard(hashResults.md5)} />
+                  </Col>
+                </Row>
+                <Row gutter={16}>
+                  <Col span={2}><Text strong>SHA1：</Text></Col>
+                  <Col span={20}>
+                    <Input value={hashResults.sha1} readOnly />
+                  </Col>
+                  <Col span={2}>
+                    <Button icon={<CopyOutlined />} onClick={() => copyToClipboard(hashResults.sha1)} />
+                  </Col>
+                </Row>
+                <Row gutter={16}>
+                  <Col span={2}><Text strong>SHA256：</Text></Col>
+                  <Col span={20}>
+                    <Input value={hashResults.sha256} readOnly />
+                  </Col>
+                  <Col span={2}>
+                    <Button icon={<CopyOutlined />} onClick={() => copyToClipboard(hashResults.sha256)} />
+                  </Col>
+                </Row>
+              </Space>
+            </Card>
+          )}
+        </Space>
+      )
+    }
+  ];
+
   return (
     <div className="network-tools">
       <Card title="网络工具集" className="tool-card">
-        <Tabs defaultActiveKey="url" type="card">
-          {/* URL编码/解码 */}
-          <TabPane tab="URL编码/解码" key="url">
-            <Space direction="vertical" size="large" style={{ width: '100%' }}>
-              <Card size="small" title="URL编码/解码">
-                <Row gutter={16}>
-                  <Col span={12}>
-                    <div style={{ marginBottom: 8 }}>输入:</div>
-                    <TextArea
-                      value={urlInput}
-                      onChange={(e) => setUrlInput(e.target.value)}
-                      placeholder="输入要编码或解码的URL..."
-                      rows={6}
-                    />
-                    <div style={{ marginTop: 8 }}>
-                      <Space>
-                        <Button type="primary" onClick={encodeURL}>
-                          编码
-                        </Button>
-                        <Button onClick={decodeURL}>
-                          解码
-                        </Button>
-                        <Button 
-                          icon={<ClearOutlined />}
-                          onClick={() => { setUrlInput(''); setUrlOutput(''); }}
-                        >
-                          清空
-                        </Button>
-                      </Space>
-                    </div>
-                  </Col>
-                  <Col span={12}>
-                    <div style={{ marginBottom: 8 }}>输出:</div>
-                    <TextArea
-                      value={urlOutput}
-                      readOnly
-                      placeholder="编码或解码结果将显示在这里..."
-                      rows={6}
-                      style={{ backgroundColor: '#f5f5f5' }}
-                    />
-                    <div style={{ marginTop: 8 }}>
-                      <Button 
-                        icon={<CopyOutlined />}
-                        onClick={() => copyToClipboard(urlOutput)}
-                        disabled={!urlOutput}
-                      >
-                        复制
-                      </Button>
-                    </div>
-                  </Col>
-                </Row>
-              </Card>
-            </Space>
-          </TabPane>
-
-          {/* Base64编码/解码 */}
-          <TabPane tab="Base64编码/解码" key="base64">
-            <Space direction="vertical" size="large" style={{ width: '100%' }}>
-              <Card size="small" title="Base64编码/解码">
-                <Row gutter={16}>
-                  <Col span={12}>
-                    <div style={{ marginBottom: 8 }}>输入:</div>
-                    <TextArea
-                      value={base64Input}
-                      onChange={(e) => setBase64Input(e.target.value)}
-                      placeholder="输入要编码或解码的文本..."
-                      rows={6}
-                    />
-                    <div style={{ marginTop: 8 }}>
-                      <Space>
-                        <Button type="primary" onClick={encodeBase64}>
-                          编码
-                        </Button>
-                        <Button onClick={decodeBase64}>
-                          解码
-                        </Button>
-                        <Button 
-                          icon={<ClearOutlined />}
-                          onClick={() => { setBase64Input(''); setBase64Output(''); }}
-                        >
-                          清空
-                        </Button>
-                      </Space>
-                    </div>
-                  </Col>
-                  <Col span={12}>
-                    <div style={{ marginBottom: 8 }}>输出:</div>
-                    <TextArea
-                      value={base64Output}
-                      readOnly
-                      placeholder="编码或解码结果将显示在这里..."
-                      rows={6}
-                      style={{ backgroundColor: '#f5f5f5' }}
-                    />
-                    <div style={{ marginTop: 8 }}>
-                      <Button 
-                        icon={<CopyOutlined />}
-                        onClick={() => copyToClipboard(base64Output)}
-                        disabled={!base64Output}
-                      >
-                        复制
-                      </Button>
-                    </div>
-                  </Col>
-                </Row>
-              </Card>
-            </Space>
-          </TabPane>
-
-          {/* IP查询 */}
-          <TabPane tab="IP查询" key="ip">
-            <Space direction="vertical" size="large" style={{ width: '100%' }}>
-              <Card size="small" title="IP地址查询">
-                <Row gutter={16}>
-                  <Col span={12}>
-                    <Space direction="vertical" style={{ width: '100%' }}>
-                      <Input
-                        value={ipInput}
-                        onChange={(e) => setIpInput(e.target.value)}
-                        placeholder="输入IP地址..."
-                        prefix={<GlobalOutlined />}
-                      />
-                      <Space>
-                        <Button 
-                          type="primary" 
-                          icon={<SearchOutlined />}
-                          onClick={() => queryIPInfo()}
-                          loading={ipLoading}
-                        >
-                          查询
-                        </Button>
-                        <Button 
-                          icon={<WifiOutlined />}
-                          onClick={getMyIP}
-                          loading={ipLoading}
-                        >
-                          获取我的IP
-                        </Button>
-                      </Space>
-                    </Space>
-                  </Col>
-                  <Col span={12}>
-                    {ipInfo && (
-                      <Card size="small" title="IP信息">
-                        <div style={{ lineHeight: '2' }}>
-                          <div><strong>IP地址:</strong> {ipInfo.ip}</div>
-                          <div><strong>国家:</strong> {ipInfo.country}</div>
-                          <div><strong>地区:</strong> {ipInfo.region}</div>
-                          <div><strong>城市:</strong> {ipInfo.city}</div>
-                          <div><strong>ISP:</strong> {ipInfo.isp}</div>
-                          <div><strong>时区:</strong> {ipInfo.timezone}</div>
-                          <div><strong>坐标:</strong> {ipInfo.lat}, {ipInfo.lon}</div>
-                        </div>
-                      </Card>
-                    )}
-                  </Col>
-                </Row>
-              </Card>
-            </Space>
-          </TabPane>
-
-          {/* 端口检测 */}
-          <TabPane tab="端口检测" key="port">
-            <Space direction="vertical" size="large" style={{ width: '100%' }}>
-              <Card size="small" title="端口连通性检测">
-                <Row gutter={16}>
-                  <Col span={12}>
-                    <Space direction="vertical" style={{ width: '100%' }}>
-                      <Input
-                        value={hostInput}
-                        onChange={(e) => setHostInput(e.target.value)}
-                        placeholder="输入主机地址 (如: google.com)"
-                        prefix={<LinkOutlined />}
-                      />
-                      <Input
-                        value={portInput}
-                        onChange={(e) => setPortInput(e.target.value)}
-                        placeholder="输入端口 (如: 80,443,22)"
-                        addonBefore="端口"
-                      />
-                      <Button 
-                        type="primary" 
-                        icon={<SearchOutlined />}
-                        onClick={checkPorts}
-                        loading={portLoading}
-                        block
-                      >
-                        检测端口
-                      </Button>
-                      <div style={{ fontSize: '12px', color: '#666' }}>
-                        提示: 多个端口用逗号分隔，如: 80,443,22
-                      </div>
-                    </Space>
-                  </Col>
-                  <Col span={12}>
-                    {portResults.length > 0 && (
-                      <Table
-                        columns={portColumns}
-                        dataSource={portResults}
-                        size="small"
-                        pagination={false}
-                        rowKey="port"
-                      />
-                    )}
-                  </Col>
-                </Row>
-              </Card>
-            </Space>
-          </TabPane>
-
-          {/* Hash计算 */}
-          <TabPane tab="Hash计算" key="hash">
-            <Space direction="vertical" size="large" style={{ width: '100%' }}>
-              <Card size="small" title="Hash值计算">
-                <Row gutter={16}>
-                  <Col span={12}>
-                    <div style={{ marginBottom: 8 }}>输入文本:</div>
-                    <TextArea
-                      value={hashInput}
-                      onChange={(e) => setHashInput(e.target.value)}
-                      placeholder="输入要计算Hash的文本..."
-                      rows={6}
-                    />
-                    <div style={{ marginTop: 8 }}>
-                      <Button type="primary" onClick={calculateHash}>
-                        计算Hash
-                      </Button>
-                    </div>
-                  </Col>
-                  <Col span={12}>
-                    {hashResults && (
-                      <Card size="small" title="Hash结果">
-                        <Space direction="vertical" style={{ width: '100%' }}>
-                          <div>
-                            <Text strong>MD5:</Text>
-                            <div style={{ 
-                              wordBreak: 'break-all', 
-                              fontFamily: 'monospace',
-                              backgroundColor: '#f5f5f5',
-                              padding: '4px 8px',
-                              borderRadius: '4px',
-                              marginTop: '4px'
-                            }}>
-                              {hashResults.md5}
-                              <Button 
-                                size="small" 
-                                icon={<CopyOutlined />}
-                                onClick={() => copyToClipboard(hashResults.md5)}
-                                style={{ marginLeft: 8 }}
-                              />
-                            </div>
-                          </div>
-                          <div>
-                            <Text strong>SHA-1:</Text>
-                            <div style={{ 
-                              wordBreak: 'break-all', 
-                              fontFamily: 'monospace',
-                              backgroundColor: '#f5f5f5',
-                              padding: '4px 8px',
-                              borderRadius: '4px',
-                              marginTop: '4px'
-                            }}>
-                              {hashResults.sha1}
-                              <Button 
-                                size="small" 
-                                icon={<CopyOutlined />}
-                                onClick={() => copyToClipboard(hashResults.sha1)}
-                                style={{ marginLeft: 8 }}
-                              />
-                            </div>
-                          </div>
-                          <div>
-                            <Text strong>SHA-256:</Text>
-                            <div style={{ 
-                              wordBreak: 'break-all', 
-                              fontFamily: 'monospace',
-                              backgroundColor: '#f5f5f5',
-                              padding: '4px 8px',
-                              borderRadius: '4px',
-                              marginTop: '4px'
-                            }}>
-                              {hashResults.sha256}
-                              <Button 
-                                size="small" 
-                                icon={<CopyOutlined />}
-                                onClick={() => copyToClipboard(hashResults.sha256)}
-                                style={{ marginLeft: 8 }}
-                              />
-                            </div>
-                          </div>
-                        </Space>
-                      </Card>
-                    )}
-                  </Col>
-                </Row>
-              </Card>
-            </Space>
-          </TabPane>
-        </Tabs>
+        <Tabs defaultActiveKey="url" type="card" items={tabItems} />
       </Card>
     </div>
   );

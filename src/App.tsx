@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout, Menu, Typography, ConfigProvider, Avatar, Dropdown, theme as antdTheme } from 'antd';
+import { Layout, Menu, Typography, ConfigProvider, Avatar, Dropdown, theme as antdTheme, App as AntdApp } from 'antd';
 import type { MenuProps } from 'antd';
 import { 
   FileZipOutlined, 
@@ -397,299 +397,295 @@ const App: React.FC = () => {
         },
       }}
     >
-      <Layout style={{ 
-        minHeight: '100vh', 
-        background: theme.isDark 
-          ? 'linear-gradient(135deg, #1a202c 0%, #2d3748 100%)' 
-          : 'linear-gradient(135deg, #e8edf3 0%, #f4f7fa 100%)' 
-      }} className="fade-in">
-        <Sider 
-            width={280} 
-            collapsed={collapsed}
-            style={{ 
-              background: theme.isDark 
-                ? 'rgba(26, 32, 44, 0.95)' 
-                : 'rgba(255, 255, 255, 0.95)',
-              backdropFilter: 'blur(20px)',
-              boxShadow: theme.isDark 
-                ? '4px 0 24px rgba(0, 0, 0, 0.3)' 
-                : '4px 0 24px rgba(0, 0, 0, 0.1)',
-              borderRight: theme.isDark 
+      <AntdApp>
+        <Layout style={{ minHeight: '100vh' }}>
+          <Sider 
+              width={280} 
+              collapsed={collapsed}
+              style={{ 
+                background: theme.isDark 
+                  ? 'rgba(26, 32, 44, 0.95)' 
+                  : 'rgba(255, 255, 255, 0.95)',
+                backdropFilter: 'blur(20px)',
+                boxShadow: theme.isDark 
+                  ? '4px 0 24px rgba(0, 0, 0, 0.3)' 
+                  : '4px 0 24px rgba(0, 0, 0, 0.1)',
+                borderRight: theme.isDark 
+                  ? '1px solid rgba(74, 85, 104, 0.3)' 
+                  : '1px solid rgba(255, 255, 255, 0.2)',
+                position: 'relative',
+                zIndex: 10
+              }}
+              className="glass-effect"
+            >
+            <div style={{ 
+              padding: collapsed ? '20px 12px' : '32px 24px', 
+              textAlign: collapsed ? 'center' : 'left',
+              borderBottom: theme.isDark 
                 ? '1px solid rgba(74, 85, 104, 0.3)' 
-                : '1px solid rgba(255, 255, 255, 0.2)',
+                : '1px solid rgba(255, 255, 255, 0.15)',
+              background: theme.isDark 
+                ? `
+                  linear-gradient(135deg, #4a5568 0%, #2d3748 50%, #1a202c 100%),
+                  radial-gradient(circle at 20% 80%, rgba(156, 163, 196, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(156, 163, 196, 0.08) 0%, transparent 50%)
+                `
+                : `
+                  linear-gradient(135deg, #8b8fb8 0%, #7db3c7 50%, #9ca3d4 100%),
+                  radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 50%)
+                `,
+              color: 'white',
+              boxShadow: theme.isDark 
+                ? `
+                  0 8px 32px rgba(0, 0, 0, 0.4),
+                  inset 0 1px 0 rgba(156, 163, 196, 0.2),
+                  inset 0 -1px 0 rgba(0, 0, 0, 0.2)
+                `
+                : `
+                  0 8px 32px rgba(139, 143, 184, 0.3),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                  inset 0 -1px 0 rgba(0, 0, 0, 0.1)
+                `,
               position: 'relative',
-              zIndex: 10
-            }}
-            className="glass-effect"
-          >
-          <div style={{ 
-            padding: collapsed ? '20px 12px' : '32px 24px', 
-            textAlign: collapsed ? 'center' : 'left',
-            borderBottom: theme.isDark 
-              ? '1px solid rgba(74, 85, 104, 0.3)' 
-              : '1px solid rgba(255, 255, 255, 0.15)',
-            background: theme.isDark 
-              ? `
-                linear-gradient(135deg, #4a5568 0%, #2d3748 50%, #1a202c 100%),
-                radial-gradient(circle at 20% 80%, rgba(156, 163, 196, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(156, 163, 196, 0.08) 0%, transparent 50%)
-              `
-              : `
-                linear-gradient(135deg, #8b8fb8 0%, #7db3c7 50%, #9ca3d4 100%),
-                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 50%)
-              `,
-            color: 'white',
-            boxShadow: theme.isDark 
-              ? `
-                0 8px 32px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(156, 163, 196, 0.2),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.2)
-              `
-              : `
-                0 8px 32px rgba(139, 143, 184, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.1)
-              `,
-            position: 'relative',
-            overflow: 'hidden'
-          }} className="hover-lift">
-            {/* 装饰性背景元素 */}
-            <div style={{
-              position: 'absolute',
-              top: '-50%',
-              right: '-20%',
-              width: '100px',
-              height: '100px',
-              background: 'radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%)',
-              borderRadius: '50%',
-              pointerEvents: 'none'
-            }} />
-            <div style={{
-              position: 'absolute',
-              bottom: '-30%',
-              left: '-10%',
-              width: '80px',
-              height: '80px',
-              background: 'radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%)',
-              borderRadius: '50%',
-              pointerEvents: 'none'
-            }} />
-            
-            {!collapsed ? (
-              <>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                  marginBottom: '12px',
-                  position: 'relative',
-                  zIndex: 1
-                }}>
+              overflow: 'hidden'
+            }} className="hover-lift">
+              {/* 装饰性背景元素 */}
+              <div style={{
+                position: 'absolute',
+                top: '-50%',
+                right: '-20%',
+                width: '100px',
+                height: '100px',
+                background: 'radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%)',
+                borderRadius: '50%',
+                pointerEvents: 'none'
+              }} />
+              <div style={{
+                position: 'absolute',
+                bottom: '-30%',
+                left: '-10%',
+                width: '80px',
+                height: '80px',
+                background: 'radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%)',
+                borderRadius: '50%',
+                pointerEvents: 'none'
+              }} />
+              
+              {!collapsed ? (
+                <>
                   <div style={{
-                    fontSize: '28px',
-                    background: 'linear-gradient(135deg, #fff 0%, #f0f4f8 100%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                    filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))',
-                    lineHeight: 1
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    marginBottom: '12px',
+                    position: 'relative',
+                    zIndex: 1
                   }}>
-                    🛠️
-                  </div>
-                  <div>
-                    <Title level={3} style={{ 
-                      margin: 0, 
-                      color: 'white', 
-                      fontWeight: 700,
-                      fontSize: '20px',
-                      letterSpacing: '0.5px',
-                      background: 'linear-gradient(135deg, #fff 0%, #e2e8f0 100%)',
+                    <div style={{
+                      fontSize: '28px',
+                      background: 'linear-gradient(135deg, #fff 0%, #f0f4f8 100%)',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text',
-                      textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                      lineHeight: '1.2'
+                      filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))',
+                      lineHeight: 1
                     }}>
-                      Office Tools
-                    </Title>
-                    <div style={{
-                      fontSize: '11px',
-                      color: 'rgba(255, 255, 255, 0.7)',
-                      fontWeight: 500,
-                      letterSpacing: '0.3px',
-                      marginTop: '2px'
-                    }}>
-                      Professional Suite
+                      🛠️
+                    </div>
+                    <div>
+                      <Title level={3} style={{ 
+                        margin: 0, 
+                        color: 'white', 
+                        fontWeight: 700,
+                        fontSize: '20px',
+                        letterSpacing: '0.5px',
+                        background: 'linear-gradient(135deg, #fff 0%, #e2e8f0 100%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                        textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                        lineHeight: '1.2'
+                      }}>
+                        Office Tools
+                      </Title>
+                      <div style={{
+                        fontSize: '11px',
+                        color: 'rgba(255, 255, 255, 0.7)',
+                        fontWeight: 500,
+                        letterSpacing: '0.3px',
+                        marginTop: '2px'
+                      }}>
+                        Professional Suite
+                      </div>
                     </div>
                   </div>
-                </div>
-                
+                  
+                  <div style={{
+                    position: 'relative',
+                    zIndex: 1
+                  }}>
+                    <Text style={{ 
+                      color: 'rgba(255,255,255,0.95)', 
+                      fontSize: '13px',
+                      fontWeight: 500,
+                      background: `
+                        linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%)
+                      `,
+                      padding: '8px 16px',
+                      borderRadius: '20px',
+                      backdropFilter: 'blur(20px)',
+                      border: '1px solid rgba(255, 255, 255, 0.2)',
+                      boxShadow: `
+                        0 4px 16px rgba(0, 0, 0, 0.1),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2)
+                      `,
+                      display: 'inline-block',
+                      letterSpacing: '0.2px'
+                    }}>
+                      <div className="hero-section">
+                        <h1>多功能办公工具集</h1>
+                        <p>集成文件处理、图片工具、文本处理、计算工具、网络工具、开发工具等多种实用功能</p>
+                      </div>
+                    </Text>
+                  </div>
+                  
+                  {/* 底部装饰线 */}
+                  <div style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: '60%',
+                    height: '2px',
+                    background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%)',
+                    borderRadius: '1px'
+                  }} />
+                </>
+              ) : (
                 <div style={{
                   position: 'relative',
                   zIndex: 1
                 }}>
-                  <Text style={{ 
-                    color: 'rgba(255,255,255,0.95)', 
-                    fontSize: '13px',
-                    fontWeight: 500,
-                    background: `
-                      linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%)
-                    `,
-                    padding: '8px 16px',
-                    borderRadius: '20px',
-                    backdropFilter: 'blur(20px)',
-                    border: '1px solid rgba(255, 255, 255, 0.2)',
-                    boxShadow: `
-                      0 4px 16px rgba(0, 0, 0, 0.1),
-                      inset 0 1px 0 rgba(255, 255, 255, 0.2)
-                    `,
-                    display: 'inline-block',
-                    letterSpacing: '0.2px'
+                  <Title level={4} style={{ 
+                    margin: 0, 
+                    color: 'white',
+                    fontSize: '24px',
+                    textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'
+                  }}>🛠️</Title>
+                </div>
+              )}
+            </div>
+            
+            <Menu
+              mode="inline"
+              selectedKeys={[selectedKey]}
+              items={menuItems}
+              onClick={({ key }) => setSelectedKey(key as MenuKey)}
+              style={{ 
+                borderRight: 0, 
+                height: 'calc(100vh - 120px)', 
+                overflowY: 'auto',
+                padding: '16px 8px',
+                background: 'transparent',
+                fontSize: '14px'
+              }}
+              className="modern-menu"
+            />
+          </Sider>
+          
+          <Layout style={{ background: 'transparent' }}>
+            <Header style={{ 
+              padding: '0 32px', 
+              background: theme.isDark 
+                ? 'linear-gradient(135deg, #4a5568 0%, #2d3748 100%)' 
+                : 'linear-gradient(135deg, #8b8fb8 0%, #7a7fb0 100%)',
+              backdropFilter: 'blur(20px)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              borderBottom: theme.isDark 
+                ? '1px solid rgba(74, 85, 104, 0.3)' 
+                : '1px solid rgba(255, 255, 255, 0.1)',
+              boxShadow: theme.isDark 
+                ? '0 2px 8px rgba(0, 0, 0, 0.3)' 
+                : '0 2px 8px rgba(0, 0, 0, 0.1)',
+              height: '80px',
+              minHeight: '80px'
+            }} className="glass-effect">
+              <div style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '16px',
+                flex: 1, // 让左侧内容占据可用空间
+                minWidth: 0 // 防止内容溢出
+              }}>
+                <button
+                  onClick={() => setCollapsed(!collapsed)}
+                  style={{
+                    border: 'none',
+                    background: 'transparent',
+                    fontSize: '16px',
+                    cursor: 'pointer',
+                    padding: '8px',
+                    borderRadius: '6px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#64748b',
+                    transition: 'all 0.2s',
+                    flexShrink: 0 // 防止按钮被压缩
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = theme.isDark ? 'rgba(74, 85, 104, 0.3)' : '#f1f5f9'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                >
+                  {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                </button>
+                
+                <div style={{
+                  minWidth: 0,
+                  flex: 1,
+                  maxWidth: 'calc(100% - 100px)', // 为右侧按钮预留空间
+                  overflow: 'hidden'
+                }}>
+                  <Title level={3} style={{ 
+                    margin: 0, 
+                    color: '#fff', 
+                    fontWeight: 600,
+                    lineHeight: '1.2',
+                    fontSize: '24px',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    background: 'linear-gradient(135deg, #fff, #e2e8f0)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                    maxWidth: '100%',
+                    width: '100%'
                   }}>
-                    <div className="hero-section">
-                      <h1>多功能办公工具集</h1>
-                      <p>集成文件处理、图片工具、文本处理、计算工具、网络工具、开发工具等多种实用功能</p>
-                    </div>
+                    {getPageTitle()}
+                  </Title>
+                  <Text style={{ 
+                    color: 'rgba(255, 255, 255, 0.9)', 
+                    fontSize: '14px',
+                    lineHeight: '1.4',
+                    display: 'block',
+                    marginTop: '2px',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backdropFilter: 'blur(10px)',
+                    maxWidth: '100%',
+                    width: 'fit-content'
+                  }}>
+                    {getPageDescription()}
                   </Text>
                 </div>
-                
-                {/* 底部装饰线 */}
-                <div style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  width: '60%',
-                  height: '2px',
-                  background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%)',
-                  borderRadius: '1px'
-                }} />
-              </>
-            ) : (
-              <div style={{
-                position: 'relative',
-                zIndex: 1
-              }}>
-                <Title level={4} style={{ 
-                  margin: 0, 
-                  color: 'white',
-                  fontSize: '24px',
-                  textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'
-                }}>🛠️</Title>
               </div>
-            )}
-          </div>
-          
-          <Menu
-            mode="inline"
-            selectedKeys={[selectedKey]}
-            items={menuItems}
-            onClick={({ key }) => setSelectedKey(key as MenuKey)}
-            style={{ 
-              borderRight: 0, 
-              height: 'calc(100vh - 120px)', 
-              overflowY: 'auto',
-              padding: '16px 8px',
-              background: 'transparent',
-              fontSize: '14px'
-            }}
-            className="modern-menu"
-          />
-        </Sider>
-        
-        <Layout style={{ background: 'transparent' }}>
-          <Header style={{ 
-            padding: '0 32px', 
-            background: theme.isDark 
-              ? 'linear-gradient(135deg, #4a5568 0%, #2d3748 100%)' 
-              : 'linear-gradient(135deg, #8b8fb8 0%, #7a7fb0 100%)',
-            backdropFilter: 'blur(20px)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            borderBottom: theme.isDark 
-              ? '1px solid rgba(74, 85, 104, 0.3)' 
-              : '1px solid rgba(255, 255, 255, 0.1)',
-            boxShadow: theme.isDark 
-              ? '0 2px 8px rgba(0, 0, 0, 0.3)' 
-              : '0 2px 8px rgba(0, 0, 0, 0.1)',
-            height: '80px',
-            minHeight: '80px'
-          }} className="glass-effect">
-            <div style={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              gap: '16px',
-              flex: 1, // 让左侧内容占据可用空间
-              minWidth: 0 // 防止内容溢出
-            }}>
-              <button
-                onClick={() => setCollapsed(!collapsed)}
-                style={{
-                  border: 'none',
-                  background: 'transparent',
-                  fontSize: '16px',
-                  cursor: 'pointer',
-                  padding: '8px',
-                  borderRadius: '6px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#64748b',
-                  transition: 'all 0.2s',
-                  flexShrink: 0 // 防止按钮被压缩
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.background = theme.isDark ? 'rgba(74, 85, 104, 0.3)' : '#f1f5f9'}
-                onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-              >
-                {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              </button>
-              
-              <div style={{
-                minWidth: 0,
-                flex: 1,
-                maxWidth: 'calc(100% - 100px)', // 为右侧按钮预留空间
-                overflow: 'hidden'
-              }}>
-                <Title level={3} style={{ 
-                  margin: 0, 
-                  color: '#fff', 
-                  fontWeight: 600,
-                  lineHeight: '1.2',
-                  fontSize: '24px',
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  background: 'linear-gradient(135deg, #fff, #e2e8f0)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                  maxWidth: '100%',
-                  width: '100%'
-                }}>
-                  {getPageTitle()}
-                </Title>
-                <Text style={{ 
-                  color: 'rgba(255, 255, 255, 0.9)', 
-                  fontSize: '14px',
-                  lineHeight: '1.4',
-                  display: 'block',
-                  marginTop: '2px',
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  background: 'rgba(255, 255, 255, 0.1)',
-                  padding: '2px 8px',
-                  borderRadius: '12px',
-                  backdropFilter: 'blur(10px)',
-                  maxWidth: '100%',
-                  width: 'fit-content'
-                }}>
-                  {getPageDescription()}
-                </Text>
-              </div>
-            </div>
             
             <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: '12px' }}>
               <ThemeToggle variant="button" size="middle" />
@@ -740,8 +736,8 @@ const App: React.FC = () => {
           </Content>
         </Layout>
       </Layout>
-    </ConfigProvider>
-  );
-};
-
+    </AntdApp>
+  </ConfigProvider>
+);
+}
 export default App;
