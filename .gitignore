@@ -102,6 +102,7 @@ tmp/
 temp/
 
 # Electron
+.electron/
 release/
 *.dmg
 *.exe

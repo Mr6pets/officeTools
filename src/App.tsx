@@ -13,7 +13,15 @@ import {
   UserOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  BgColorsOutlined
+  BgColorsOutlined,
+  SwapOutlined,
+  EditOutlined,
+  CodeOutlined,
+  GlobalOutlined,
+  SafetyOutlined,
+  ClockCircleOutlined,
+  FileTextOutlined,
+  DiffOutlined
 } from '@ant-design/icons';
 import { useTheme } from './hooks/useTheme';
 import ThemeToggle from './components/ThemeToggle';
@@ -31,23 +39,27 @@ import Generator from './components/Generator';
 import ColorPicker from './components/ColorPicker';
 import zhCN from 'antd/locale/zh_CN';
 import Settings from './components/Settings';
+import FileConverter from './components/FileConverter';
+import ImageEditor from './components/ImageEditor';
+import JSONFormatter from './components/JSONFormatter';
+import NetworkTools from './components/NetworkTools';
+import RegexTester from './components/RegexTester';
+import TimestampConverter from './components/TimestampConverter';
+import CryptoTools from './components/CryptoTools';
+import ColorConverter from './components/ColorConverter';
+import MarkdownEditor from './components/MarkdownEditor';
+import CodeFormatter from './components/CodeFormatter';
+import TextDiff from './components/TextDiff';
 
 const { Header, Content, Sider } = Layout;
 const { Title, Text } = Typography;
 
-// 移除重复的导入语句
-// import Settings from './components/Settings';
-
-type MenuKey = 'compress' | 'ocr' | 'imageCompress' | 'pdf' | 'text' | 'qrcode' | 'calculator' | 'generator' | 'colorpicker' | 'settings';
+type MenuKey = 'compress' | 'convert' | 'ocr' | 'imageCompress' | 'imageEditor' | 'pdf' | 'text' | 'qrcode' | 'calculator' | 'generator' | 'colorpicker' | 'jsonFormatter' | 'networkTools' | 'regexTester' | 'timestampConverter' | 'cryptoTools' | 'colorConverter' | 'markdownEditor' | 'codeFormatter' | 'textDiff' | 'settings';
 
 const App: React.FC = () => {
   const [selectedKey, setSelectedKey] = useState<MenuKey>('compress');
   const [collapsed, setCollapsed] = useState(false);
   const { theme } = useTheme();
-  // 移除未使用的变量
-  // const {
-  //   token: { colorBgContainer, borderRadiusLG },
-  // } = theme.useToken();
 
   const menuItems: MenuProps['items'] = [
     {
@@ -59,6 +71,11 @@ const App: React.FC = () => {
           key: 'compress',
           icon: <FileZipOutlined />,
           label: '文件压缩',
+        },
+        {
+          key: 'convert',
+          icon: <SwapOutlined />,
+          label: '格式转换',
         },
         {
           key: 'pdf',
@@ -82,6 +99,11 @@ const App: React.FC = () => {
           icon: <FileImageOutlined />,
           label: '图片压缩',
         },
+        {
+          key: 'imageEditor',
+          icon: <EditOutlined />,
+          label: '图片编辑',
+        },
       ],
     },
     {
@@ -95,9 +117,58 @@ const App: React.FC = () => {
           label: '文本处理',
         },
         {
+          key: 'markdownEditor',
+          icon: <FileTextOutlined />,
+          label: 'Markdown编辑器',
+        },
+        {
+          key: 'textDiff',
+          icon: <DiffOutlined />,
+          label: '文本对比',
+        },
+        {
           key: 'qrcode',
           icon: <QrcodeOutlined />,
           label: '二维码',
+        },
+      ],
+    },
+    {
+      key: 'developer',
+      label: '开发工具',
+      type: 'group',
+      children: [
+        {
+          key: 'jsonFormatter',
+          icon: <CodeOutlined />,
+          label: 'JSON格式化',
+        },
+        {
+          key: 'codeFormatter',
+          icon: <CodeOutlined />,
+          label: '代码格式化',
+        },
+        {
+          key: 'regexTester',
+          icon: <CodeOutlined />,
+          label: '正则测试',
+        },
+      ],
+    },
+    {
+      key: 'network',
+      label: '网络工具',
+      type: 'group',
+      children: [
+        {
+          key: 'networkTools',
+          icon: <GlobalOutlined />,
+          label: '网络工具',
+        },
+        {
+          key: 'cryptoTools',
+          icon: <SafetyOutlined />,
+          label: '加密解密',
         },
       ],
     },
@@ -117,9 +188,19 @@ const App: React.FC = () => {
           label: '生成器',
         },
         {
+          key: 'timestampConverter',
+          icon: <ClockCircleOutlined />,
+          label: '时间戳转换',
+        },
+        {
           key: 'colorpicker',
           icon: <BgColorsOutlined />,
           label: '颜色取值器',
+        },
+        {
+          key: 'colorConverter',
+          icon: <BgColorsOutlined />,
+          label: '颜色转换',
         },
       ],
     },
@@ -128,14 +209,25 @@ const App: React.FC = () => {
   const getPageTitle = () => {
     const titles = {
       compress: '文件压缩',
+      convert: '格式转换',
       ocr: '图片识字',
       imageCompress: '图片压缩',
+      imageEditor: '图片编辑器',
       pdf: 'PDF工具',
       text: '文本处理',
+      markdownEditor: 'Markdown编辑器',
+      textDiff: '文本差异对比',
       qrcode: '二维码工具',
       calculator: '计算器',
       generator: '生成器',
+      timestampConverter: '时间戳转换',
       colorpicker: '颜色取值器',
+      colorConverter: '颜色转换器',
+      jsonFormatter: 'JSON格式化',
+      codeFormatter: '代码格式化',
+      regexTester: '正则表达式测试',
+      networkTools: '网络工具',
+      cryptoTools: '加密解密工具',
       settings: '应用设置'
     };
     return titles[selectedKey] || '办公工具';
@@ -144,14 +236,25 @@ const App: React.FC = () => {
   const getPageDescription = () => {
     const descriptions = {
       compress: '快速压缩各种格式文件，节省存储空间',
+      convert: '支持多种文件格式之间的转换',
       ocr: '智能识别图片中的文字内容',
       imageCompress: '无损压缩图片，保持质量的同时减小文件大小',
+      imageEditor: '功能强大的在线图片编辑器，支持滤镜、文字等',
       pdf: '全面的PDF处理工具集',
       text: '强大的文本编辑和格式化工具',
+      markdownEditor: '实时预览的Markdown编辑器',
+      textDiff: '对比两个文本的差异，支持多种对比模式',
       qrcode: '生成和识别二维码',
       calculator: '多功能科学计算器',
       generator: '随机数据生成工具',
+      timestampConverter: '时间戳与日期时间的双向转换工具',
       colorpicker: '专业的颜色选择和转换工具',
+      colorConverter: '多种颜色格式转换工具',
+      jsonFormatter: 'JSON数据格式化、验证和分析工具',
+      codeFormatter: '多语言代码格式化和美化工具',
+      regexTester: '正则表达式测试和验证工具',
+      networkTools: 'URL编码、Base64、Hash等网络工具集',
+      cryptoTools: 'AES、DES加密解密和Hash计算工具',
       settings: '个性化配置您的办公工具体验'
     };
     return descriptions[selectedKey] || '高效的办公工具集合';
@@ -161,22 +264,44 @@ const App: React.FC = () => {
     switch (selectedKey) {
       case 'compress':
         return <FileCompressor />;
+      case 'convert':
+        return <FileConverter />;
       case 'ocr':
         return <ImageOCR />;
       case 'imageCompress':
         return <ImageCompressor />;
+      case 'imageEditor':
+        return <ImageEditor />;
       case 'pdf':
         return <PDFTools />;
       case 'text':
         return <TextTools />;
+      case 'markdownEditor':
+        return <MarkdownEditor />;
+      case 'textDiff':
+        return <TextDiff />;
       case 'qrcode':
         return <QRCodeTools />;
       case 'calculator':
         return <Calculator />;
       case 'generator':
         return <Generator />;
+      case 'timestampConverter':
+        return <TimestampConverter />;
       case 'colorpicker':
         return <ColorPicker />;
+      case 'colorConverter':
+        return <ColorConverter />;
+      case 'jsonFormatter':
+        return <JSONFormatter />;
+      case 'codeFormatter':
+        return <CodeFormatter />;
+      case 'regexTester':
+        return <RegexTester />;
+      case 'networkTools':
+        return <NetworkTools />;
+      case 'cryptoTools':
+        return <CryptoTools />;
       case 'settings':
         return <Settings />;
       default:
@@ -229,18 +354,69 @@ const App: React.FC = () => {
             colorText: theme.isDark ? '#f1f5f9' : '#4a5568',
             colorBorder: theme.isDark ? 'rgba(74, 85, 104, 0.5)' : 'rgba(226, 232, 240, 0.8)',
           },
+          Modal: {
+            contentBg: theme.isDark ? '#2d3748' : '#ffffff',
+            headerBg: theme.isDark ? '#2d3748' : '#ffffff',
+            footerBg: theme.isDark ? '#2d3748' : '#ffffff',
+            maskBg: theme.isDark ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 0, 0, 0.45)',
+          },
+          Dropdown: {
+            colorBgElevated: theme.isDark ? '#2d3748' : '#ffffff',
+            colorBorder: theme.isDark ? 'rgba(74, 85, 104, 0.5)' : 'rgba(226, 232, 240, 0.8)',
+          },
+          Tooltip: {
+            colorBgSpotlight: theme.isDark ? '#4a5568' : '#1f2937',
+            colorTextLightSolid: theme.isDark ? '#f1f5f9' : '#ffffff',
+          },
+          Popover: {
+            colorBgElevated: theme.isDark ? '#2d3748' : '#ffffff',
+            colorBorder: theme.isDark ? 'rgba(74, 85, 104, 0.5)' : 'rgba(226, 232, 240, 0.8)',
+          },
+          Message: {
+            colorBgElevated: theme.isDark ? '#2d3748' : '#ffffff',
+            colorText: theme.isDark ? '#f1f5f9' : '#4a5568',
+            colorBorder: theme.isDark ? 'rgba(74, 85, 104, 0.5)' : 'rgba(226, 232, 240, 0.8)',
+          },
+          Notification: {
+            colorBgElevated: theme.isDark ? '#2d3748' : '#ffffff',
+            colorBorder: theme.isDark ? 'rgba(74, 85, 104, 0.5)' : 'rgba(226, 232, 240, 0.8)',
+            colorText: theme.isDark ? '#f1f5f9' : '#4a5568',
+          },
+          Select: {
+            colorBgElevated: theme.isDark ? '#2d3748' : '#ffffff',
+            optionSelectedBg: theme.isDark ? 'rgba(156, 163, 196, 0.2)' : 'rgba(139, 143, 184, 0.1)',
+          },
+          DatePicker: {
+            colorBgElevated: theme.isDark ? '#2d3748' : '#ffffff',
+            colorBorder: theme.isDark ? 'rgba(74, 85, 104, 0.5)' : 'rgba(226, 232, 240, 0.8)',
+          },
+          TimePicker: {
+            colorBgElevated: theme.isDark ? '#2d3748' : '#ffffff',
+            colorBorder: theme.isDark ? 'rgba(74, 85, 104, 0.5)' : 'rgba(226, 232, 240, 0.8)',
+          },
         },
       }}
     >
-      <Layout style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #e8edf3 0%, #f4f7fa 100%)' }} className="fade-in">
+      <Layout style={{ 
+        minHeight: '100vh', 
+        background: theme.isDark 
+          ? 'linear-gradient(135deg, #1a202c 0%, #2d3748 100%)' 
+          : 'linear-gradient(135deg, #e8edf3 0%, #f4f7fa 100%)' 
+      }} className="fade-in">
         <Sider 
             width={280} 
             collapsed={collapsed}
             style={{ 
-              background: 'rgba(255, 255, 255, 0.95)',
+              background: theme.isDark 
+                ? 'rgba(26, 32, 44, 0.95)' 
+                : 'rgba(255, 255, 255, 0.95)',
               backdropFilter: 'blur(20px)',
-              boxShadow: '4px 0 24px rgba(0, 0, 0, 0.1)',
-              borderRight: '1px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: theme.isDark 
+                ? '4px 0 24px rgba(0, 0, 0, 0.3)' 
+                : '4px 0 24px rgba(0, 0, 0, 0.1)',
+              borderRight: theme.isDark 
+                ? '1px solid rgba(74, 85, 104, 0.3)' 
+                : '1px solid rgba(255, 255, 255, 0.2)',
               position: 'relative',
               zIndex: 10
             }}
@@ -249,18 +425,32 @@ const App: React.FC = () => {
           <div style={{ 
             padding: collapsed ? '20px 12px' : '32px 24px', 
             textAlign: collapsed ? 'center' : 'left',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.15)',
-            background: `
-              linear-gradient(135deg, #8b8fb8 0%, #7db3c7 50%, #9ca3d4 100%),
-              radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 50%)
-            `,
+            borderBottom: theme.isDark 
+              ? '1px solid rgba(74, 85, 104, 0.3)' 
+              : '1px solid rgba(255, 255, 255, 0.15)',
+            background: theme.isDark 
+              ? `
+                linear-gradient(135deg, #4a5568 0%, #2d3748 50%, #1a202c 100%),
+                radial-gradient(circle at 20% 80%, rgba(156, 163, 196, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(156, 163, 196, 0.08) 0%, transparent 50%)
+              `
+              : `
+                linear-gradient(135deg, #8b8fb8 0%, #7db3c7 50%, #9ca3d4 100%),
+                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 50%)
+              `,
             color: 'white',
-            boxShadow: `
-              0 8px 32px rgba(139, 143, 184, 0.3),
-              inset 0 1px 0 rgba(255, 255, 255, 0.2),
-              inset 0 -1px 0 rgba(0, 0, 0, 0.1)
-            `,
+            boxShadow: theme.isDark 
+              ? `
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(156, 163, 196, 0.2),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.2)
+              `
+              : `
+                0 8px 32px rgba(139, 143, 184, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1)
+              `,
             position: 'relative',
             overflow: 'hidden'
           }} className="hover-lift">
@@ -357,7 +547,10 @@ const App: React.FC = () => {
                     display: 'inline-block',
                     letterSpacing: '0.2px'
                   }}>
-                    现代化办公工具集
+                    <div className="hero-section">
+                      <h1>多功能办公工具集</h1>
+                      <p>集成文件处理、图片工具、文本处理、计算工具、网络工具、开发工具等多种实用功能</p>
+                    </div>
                   </Text>
                 </div>
                 
@@ -408,13 +601,19 @@ const App: React.FC = () => {
         <Layout style={{ background: 'transparent' }}>
           <Header style={{ 
             padding: '0 32px', 
-            background: 'linear-gradient(135deg, #8b8fb8 0%, #7a7fb0 100%)',
+            background: theme.isDark 
+              ? 'linear-gradient(135deg, #4a5568 0%, #2d3748 100%)' 
+              : 'linear-gradient(135deg, #8b8fb8 0%, #7a7fb0 100%)',
             backdropFilter: 'blur(20px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+            borderBottom: theme.isDark 
+              ? '1px solid rgba(74, 85, 104, 0.3)' 
+              : '1px solid rgba(255, 255, 255, 0.1)',
+            boxShadow: theme.isDark 
+              ? '0 2px 8px rgba(0, 0, 0, 0.3)' 
+              : '0 2px 8px rgba(0, 0, 0, 0.1)',
             height: '80px',
             minHeight: '80px'
           }} className="glass-effect">
@@ -441,7 +640,7 @@ const App: React.FC = () => {
                   transition: 'all 0.2s',
                   flexShrink: 0 // 防止按钮被压缩
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.background = '#f1f5f9'}
+                onMouseEnter={(e) => e.currentTarget.style.background = theme.isDark ? 'rgba(74, 85, 104, 0.3)' : '#f1f5f9'}
                 onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
               >
                 {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -523,7 +722,9 @@ const App: React.FC = () => {
           <Content style={{ 
             margin: '0', 
             padding: '24px', 
-            background: 'rgba(255, 255, 255, 0.98)',
+            background: theme.isDark 
+              ? 'rgba(26, 32, 44, 0.98)' 
+              : 'rgba(255, 255, 255, 0.98)',
             backdropFilter: 'blur(20px)',
             borderRadius: '0',
             overflow: 'hidden',

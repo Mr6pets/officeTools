@@ -185,6 +185,43 @@
   backdrop-filter: blur(20px) !important;
 }
 
+/* 暗黑模式下的消息提示 */
+:root.dark .ant-message-notice,
+[data-theme="dark"] .ant-message-notice {
+  background: #2d3748 !important;
+  border: 1px solid rgba(74, 85, 104, 0.5) !important;
+  color: #f1f5f9 !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4) !important;
+}
+
+:root.dark .ant-message-notice .ant-message-notice-content,
+[data-theme="dark"] .ant-message-notice .ant-message-notice-content {
+  color: #f1f5f9 !important;
+}
+
+:root.dark .ant-message-notice .anticon,
+[data-theme="dark"] .ant-message-notice .anticon {
+  color: #9ca3af !important;
+}
+
+/* 系统偏好暗黑模式下的消息提示 */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .ant-message-notice {
+    background: #2d3748 !important;
+    border: 1px solid rgba(74, 85, 104, 0.5) !important;
+    color: #f1f5f9 !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4) !important;
+  }
+  
+  :root:not([data-theme="light"]) .ant-message-notice .ant-message-notice-content {
+    color: #f1f5f9 !important;
+  }
+  
+  :root:not([data-theme="light"]) .ant-message-notice .anticon {
+    color: #9ca3af !important;
+  }
+}
+
 /* 响应式优化 */
 @media (max-width: 768px) {
   .modern-menu .ant-menu-item:hover {
