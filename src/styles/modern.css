@@ -7,15 +7,15 @@
 }
 
 .modern-menu .ant-menu-item:not(.ant-menu-item-selected) {
-  color: #4a5568 !important;
+  color: #6b7280 !important;
 }
 
 .modern-menu .ant-menu-item:not(.ant-menu-item-selected) .ant-menu-title-content {
-  color: #4a5568 !important;
+  color: #6b7280 !important;
 }
 
 .modern-menu .ant-menu-item:not(.ant-menu-item-selected) .ant-menu-item-icon {
-  color: #6b7280 !important;
+  color: #9ca3af !important;
 }
 
 .modern-menu .ant-menu-item-group-title {
@@ -24,9 +24,9 @@
 }
 
 .modern-menu .ant-menu-item:hover {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(6, 182, 212, 0.1)) !important;
+  background: rgba(59, 130, 246, 0.1) !important;
   transform: translateX(4px) !important;
-  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2) !important;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15) !important;
   color: #374151 !important;
 }
 
@@ -35,35 +35,35 @@
 }
 
 .modern-menu .ant-menu-item:hover .ant-menu-item-icon {
-  color: #4f46e5 !important;
+  color: #3b82f6 !important;
 }
 
 .modern-menu .ant-menu-item-selected {
-  background: linear-gradient(135deg, #6366f1, #4f46e5) !important;
+  background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
   color: #ffffff !important;
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
 }
 
 .modern-menu .ant-menu-item-selected .ant-menu-title-content {
   color: #ffffff !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
   font-weight: 600 !important;
 }
 
 .modern-menu .ant-menu-item-selected .ant-menu-item-icon {
   color: #ffffff !important;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2)) !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1)) !important;
 }
 
 .modern-menu .ant-menu-item-selected:hover {
-  background: linear-gradient(135deg, #4f46e5, #3730a3) !important;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
   color: #ffffff !important;
 }
 
 .modern-menu .ant-menu-item-selected:hover .ant-menu-title-content {
   color: #ffffff !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
 }
 
 /* 现代化表单样式 */
@@ -71,14 +71,14 @@
 .ant-input-password:focus,
 .ant-input:hover,
 .ant-input-password:hover {
-  border-color: #6366f1 !important;
-  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1) !important;
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1) !important;
 }
 
 .ant-input-affix-wrapper:focus,
 .ant-input-affix-wrapper:hover {
-  border-color: #6366f1 !important;
-  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1) !important;
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1) !important;
 }
 
 /* 现代化标签页样式 */
@@ -90,16 +90,16 @@
 }
 
 .ant-tabs-tab:hover {
-  background: rgba(99, 102, 241, 0.05) !important;
+  background: rgba(59, 130, 246, 0.05) !important;
 }
 
 .ant-tabs-tab-active {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(6, 182, 212, 0.1)) !important;
-  border-bottom-color: #6366f1 !important;
+  background: rgba(59, 130, 246, 0.1) !important;
+  border-bottom-color: #3b82f6 !important;
 }
 
 .ant-tabs-ink-bar {
-  background: linear-gradient(135deg, #6366f1, #06b6d4) !important;
+  background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
   height: 3px !important;
 }
 
@@ -127,11 +127,11 @@
 }
 
 .ant-btn-primary {
-  box-shadow: 0 2px 4px rgba(99, 102, 241, 0.2) !important;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2) !important;
 }
 
 .ant-btn-primary:hover {
-  box-shadow: 0 4px 8px rgba(99, 102, 241, 0.3) !important;
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3) !important;
 }
 
 /* 现代化头像样式 */
@@ -164,7 +164,7 @@
 }
 
 .ant-dropdown-menu-item:hover {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(6, 182, 212, 0.1)) !important;
+  background: rgba(59, 130, 246, 0.1) !important;
   transform: translateX(2px) !important;
 }
 
@@ -188,15 +188,15 @@
 /* 暗黑模式下的消息提示 */
 :root.dark .ant-message-notice,
 [data-theme="dark"] .ant-message-notice {
-  background: #2d3748 !important;
-  border: 1px solid rgba(74, 85, 104, 0.5) !important;
-  color: #f1f5f9 !important;
+  background: #1f2937 !important;
+  border: 1px solid #374151 !important;
+  color: #f9fafb !important;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4) !important;
 }
 
 :root.dark .ant-message-notice .ant-message-notice-content,
 [data-theme="dark"] .ant-message-notice .ant-message-notice-content {
-  color: #f1f5f9 !important;
+  color: #f9fafb !important;
 }
 
 :root.dark .ant-message-notice .anticon,
