@@ -287,7 +287,7 @@ body {
   }
   
   .ant-layout-header {
-    background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%) !important;
+    background: var(--bg-secondary) !important;
     box-shadow: var(--shadow-lg) !important;
     border-bottom: 2px solid var(--border-color) !important;
     height: 80px !important;
@@ -306,7 +306,7 @@ body {
   }
   
   .ant-layout-sider .hover-lift {
-    background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%) !important;
+    background: var(--bg-secondary) !important;
     box-shadow: var(--shadow-lg) !important;
     border-bottom: 2px solid var(--border-color) !important;
   }
@@ -652,7 +652,7 @@ body {
   }
   
   .ant-layout-header {
-    background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%) !important;
+    background: var(--bg-secondary) !important;
     box-shadow: var(--shadow-lg) !important;
     border-bottom: 2px solid var(--border-color) !important;
   }
@@ -665,7 +665,7 @@ body {
   }
   
   .ant-layout-sider .hover-lift {
-    background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%) !important;
+    background: var(--bg-secondary) !important;
     box-shadow: var(--shadow-lg) !important;
     border-bottom: 2px solid var(--border-color) !important;
   }
@@ -974,7 +974,7 @@ body {
   }
   
   .ant-layout-header {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%) !important;
+    background: var(--bg-secondary) !important;
     backdrop-filter: blur(25px) !important;
     box-shadow: var(--shadow-md) !important;
     border-bottom: 2px solid var(--border-light) !important;
@@ -1000,7 +1000,7 @@ body {
   
   /* 侧边栏标题区域增强 */
   .ant-layout-sider .hover-lift {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%) !important;
+    background: var(--bg-secondary) !important;
     box-shadow: var(--shadow-md) !important;
     border-bottom: 2px solid var(--border-light) !important;
   }
