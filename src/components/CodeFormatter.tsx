@@ -11,7 +11,6 @@ import parserTypescript from 'prettier/parser-typescript';
 const { Title, Text } = Typography;
 const { TextArea } = Input;
 const { Option } = Select;
-const { TabPane } = Tabs;
 
 interface FormatOptions {
   tabWidth: number;
@@ -189,215 +188,225 @@ console.log(greet(user));`,
     <div style={{ padding: '20px' }}>
       <Title level={2}>代码格式化工具</Title>
       
-      <Tabs defaultActiveKey="formatter">
-        <TabPane tab="代码格式化" key="formatter">
-          <Card>
-            {/* 配置选项 */}
-            <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
-              <Col span={6}>
-                <Text strong>语言类型：</Text>
-                <Select 
-                  value={language} 
-                  onChange={setLanguage}
-                  style={{ width: '100%', marginTop: '8px' }}
-                >
-                  <Option value="javascript">JavaScript</Option>
-                  <Option value="typescript">TypeScript</Option>
-                  <Option value="jsx">JSX</Option>
-                  <Option value="tsx">TSX</Option>
-                  <Option value="html">HTML</Option>
-                  <Option value="css">CSS</Option>
-                  <Option value="scss">SCSS</Option>
-                  <Option value="less">Less</Option>
-                  <Option value="json">JSON</Option>
-                  <Option value="markdown">Markdown</Option>
-                </Select>
-              </Col>
-              
-              <Col span={6}>
-                <Text strong>缩进大小：</Text>
-                <Select 
-                  value={formatOptions.tabWidth} 
-                  onChange={(value) => setFormatOptions(prev => ({ ...prev, tabWidth: value }))}
-                  style={{ width: '100%', marginTop: '8px' }}
-                >
-                  <Option value={2}>2 空格</Option>
-                  <Option value={4}>4 空格</Option>
-                  <Option value={8}>8 空格</Option>
-                </Select>
-              </Col>
-              
-              <Col span={6}>
-                <Text strong>行宽限制：</Text>
-                <Select 
-                  value={formatOptions.printWidth} 
-                  onChange={(value) => setFormatOptions(prev => ({ ...prev, printWidth: value }))}
-                  style={{ width: '100%', marginTop: '8px' }}
-                >
-                  <Option value={80}>80 字符</Option>
-                  <Option value={100}>100 字符</Option>
-                  <Option value={120}>120 字符</Option>
-                </Select>
-              </Col>
-              
-              <Col span={6}>
-                <Text strong>引号类型：</Text>
-                <Select 
-                  value={formatOptions.singleQuote ? 'single' : 'double'} 
-                  onChange={(value) => setFormatOptions(prev => ({ ...prev, singleQuote: value === 'single' }))}
-                  style={{ width: '100%', marginTop: '8px' }}
-                >
-                  <Option value="double">双引号</Option>
-                  <Option value="single">单引号</Option>
-                </Select>
-              </Col>
-            </Row>
-
-            {/* 操作按钮 */}
-            <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
-              <Col span={24}>
-                <Space>
-                  <Button 
-                    type="primary" 
-                    icon={<FormatPainterOutlined />}
-                    onClick={formatCode}
-                    disabled={!inputCode.trim()}
-                  >
-                    格式化代码
-                  </Button>
-                  <Button onClick={loadExample}>
-                    加载示例
-                  </Button>
-                  <Button icon={<ClearOutlined />} onClick={clearAll}>
-                    清空
-                  </Button>
-                </Space>
-              </Col>
-            </Row>
-
-            {/* 输入区域 */}
-            <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
-              <Col span={24}>
-                <Text strong>输入代码：</Text>
-                <TextArea
-                  value={inputCode}
-                  onChange={(e) => setInputCode(e.target.value)}
-                  placeholder="请输入要格式化的代码"
-                  rows={12}
-                  style={{ 
-                    marginTop: '8px',
-                    fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace',
-                    fontSize: '14px'
-                  }}
-                />
-              </Col>
-            </Row>
-
-            {/* 输出区域 */}
-            {outputCode && (
-              <Row gutter={[16, 16]}>
-                <Col span={24}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Text strong>格式化结果：</Text>
-                    <Button 
-                      type="link" 
-                      icon={<CopyOutlined />}
-                      onClick={() => copyToClipboard(outputCode)}
+      <Tabs 
+        defaultActiveKey="formatter"
+        items={[
+          {
+            key: 'formatter',
+            label: '代码格式化',
+            children: (
+              <Card>
+                {/* 配置选项 */}
+                <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
+                  <Col span={6}>
+                    <Text strong>语言类型：</Text>
+                    <Select 
+                      value={language} 
+                      onChange={setLanguage}
+                      style={{ width: '100%', marginTop: '8px' }}
                     >
-                      复制结果
-                    </Button>
-                  </div>
-                  <TextArea
-                    value={outputCode}
-                    readOnly
-                    rows={12}
-                    style={{ 
-                      marginTop: '8px',
-                      fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace',
-                      fontSize: '14px',
-                      backgroundColor: '#f5f5f5'
-                    }}
-                  />
-                </Col>
-              </Row>
-            )}
-          </Card>
-        </TabPane>
+                      <Option value="javascript">JavaScript</Option>
+                      <Option value="typescript">TypeScript</Option>
+                      <Option value="jsx">JSX</Option>
+                      <Option value="tsx">TSX</Option>
+                      <Option value="html">HTML</Option>
+                      <Option value="css">CSS</Option>
+                      <Option value="scss">SCSS</Option>
+                      <Option value="less">Less</Option>
+                      <Option value="json">JSON</Option>
+                      <Option value="markdown">Markdown</Option>
+                    </Select>
+                  </Col>
+                  
+                  <Col span={6}>
+                    <Text strong>缩进大小：</Text>
+                    <Select 
+                      value={formatOptions.tabWidth} 
+                      onChange={(value) => setFormatOptions(prev => ({ ...prev, tabWidth: value }))}
+                      style={{ width: '100%', marginTop: '8px' }}
+                    >
+                      <Option value={2}>2 空格</Option>
+                      <Option value={4}>4 空格</Option>
+                      <Option value={8}>8 空格</Option>
+                    </Select>
+                  </Col>
+                  
+                  <Col span={6}>
+                    <Text strong>行宽限制：</Text>
+                    <Select 
+                      value={formatOptions.printWidth} 
+                      onChange={(value) => setFormatOptions(prev => ({ ...prev, printWidth: value }))}
+                      style={{ width: '100%', marginTop: '8px' }}
+                    >
+                      <Option value={80}>80 字符</Option>
+                      <Option value={100}>100 字符</Option>
+                      <Option value={120}>120 字符</Option>
+                    </Select>
+                  </Col>
+                  
+                  <Col span={6}>
+                    <Text strong>引号类型：</Text>
+                    <Select 
+                      value={formatOptions.singleQuote ? 'single' : 'double'} 
+                      onChange={(value) => setFormatOptions(prev => ({ ...prev, singleQuote: value === 'single' }))}
+                      style={{ width: '100%', marginTop: '8px' }}
+                    >
+                      <Option value="double">双引号</Option>
+                      <Option value="single">单引号</Option>
+                    </Select>
+                  </Col>
+                </Row>
 
-        <TabPane tab="代码压缩" key="minifier">
-          <Card>
-            <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
-              <Col span={24}>
-                <Space>
-                  <Button 
-                    type="primary" 
-                    onClick={minifyCodeFunc}
-                    disabled={!inputCode.trim()}
-                  >
-                    压缩代码
-                  </Button>
-                  <Button onClick={loadExample}>
-                    加载示例
-                  </Button>
-                  <Button icon={<ClearOutlined />} onClick={clearAll}>
-                    清空
-                  </Button>
-                </Space>
-              </Col>
-            </Row>
-
-            <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
-              <Col span={24}>
-                <Text strong>输入代码：</Text>
-                <TextArea
-                  value={inputCode}
-                  onChange={(e) => setInputCode(e.target.value)}
-                  placeholder="请输入要压缩的代码"
-                  rows={10}
-                  style={{ 
-                    marginTop: '8px',
-                    fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace',
-                    fontSize: '14px'
-                  }}
-                />
-              </Col>
-            </Row>
-
-            {minifyCode && (
-              <Row gutter={[16, 16]}>
-                <Col span={24}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Text strong>压缩结果：</Text>
+                {/* 操作按钮 */}
+                <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
+                  <Col span={24}>
                     <Space>
-                      <Text type="secondary">
-                        压缩率: {Math.round((1 - minifyCode.length / inputCode.length) * 100)}%
-                      </Text>
                       <Button 
-                        type="link" 
-                        icon={<CopyOutlined />}
-                        onClick={() => copyToClipboard(minifyCode)}
+                        type="primary" 
+                        icon={<FormatPainterOutlined />}
+                        onClick={formatCode}
+                        disabled={!inputCode.trim()}
                       >
-                        复制结果
+                        格式化代码
+                      </Button>
+                      <Button onClick={loadExample}>
+                        加载示例
+                      </Button>
+                      <Button icon={<ClearOutlined />} onClick={clearAll}>
+                        清空
                       </Button>
                     </Space>
-                  </div>
-                  <TextArea
-                    value={minifyCode}
-                    readOnly
-                    rows={6}
-                    style={{ 
-                      marginTop: '8px',
-                      fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace',
-                      fontSize: '14px',
-                      backgroundColor: '#f5f5f5'
-                    }}
-                  />
-                </Col>
-              </Row>
-            )}
-          </Card>
-        </TabPane>
-      </Tabs>
+                  </Col>
+                </Row>
+
+                {/* 输入区域 */}
+                <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
+                  <Col span={24}>
+                    <Text strong>输入代码：</Text>
+                    <TextArea
+                      value={inputCode}
+                      onChange={(e) => setInputCode(e.target.value)}
+                      placeholder="请输入要格式化的代码"
+                      rows={12}
+                      style={{ 
+                        marginTop: '8px',
+                        fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace',
+                        fontSize: '14px'
+                      }}
+                    />
+                  </Col>
+                </Row>
+
+                {/* 输出区域 */}
+                {outputCode && (
+                  <Row gutter={[16, 16]}>
+                    <Col span={24}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Text strong>格式化结果：</Text>
+                        <Button 
+                          type="link" 
+                          icon={<CopyOutlined />}
+                          onClick={() => copyToClipboard(outputCode)}
+                        >
+                          复制结果
+                        </Button>
+                      </div>
+                      <TextArea
+                        value={outputCode}
+                        readOnly
+                        rows={12}
+                        style={{ 
+                          marginTop: '8px',
+                          fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace',
+                          fontSize: '14px',
+                          backgroundColor: '#f5f5f5'
+                        }}
+                      />
+                    </Col>
+                  </Row>
+                )}
+              </Card>
+            )
+          },
+          {
+            key: 'minifier',
+            label: '代码压缩',
+            children: (
+              <Card>
+                <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
+                  <Col span={24}>
+                    <Space>
+                      <Button 
+                        type="primary" 
+                        onClick={minifyCodeFunc}
+                        disabled={!inputCode.trim()}
+                      >
+                        压缩代码
+                      </Button>
+                      <Button onClick={loadExample}>
+                        加载示例
+                      </Button>
+                      <Button icon={<ClearOutlined />} onClick={clearAll}>
+                        清空
+                      </Button>
+                    </Space>
+                  </Col>
+                </Row>
+
+                <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
+                  <Col span={24}>
+                    <Text strong>输入代码：</Text>
+                    <TextArea
+                      value={inputCode}
+                      onChange={(e) => setInputCode(e.target.value)}
+                      placeholder="请输入要压缩的代码"
+                      rows={10}
+                      style={{ 
+                        marginTop: '8px',
+                        fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace',
+                        fontSize: '14px'
+                      }}
+                    />
+                  </Col>
+                </Row>
+
+                {minifyCode && (
+                  <Row gutter={[16, 16]}>
+                    <Col span={24}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Text strong>压缩结果：</Text>
+                        <Space>
+                          <Text type="secondary">
+                            压缩率: {Math.round((1 - minifyCode.length / inputCode.length) * 100)}%
+                          </Text>
+                          <Button 
+                            type="link" 
+                            icon={<CopyOutlined />}
+                            onClick={() => copyToClipboard(minifyCode)}
+                          >
+                            复制结果
+                          </Button>
+                        </Space>
+                      </div>
+                      <TextArea
+                        value={minifyCode}
+                        readOnly
+                        rows={6}
+                        style={{ 
+                          marginTop: '8px',
+                          fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace',
+                          fontSize: '14px',
+                          backgroundColor: '#f5f5f5'
+                        }}
+                      />
+                    </Col>
+                  </Row>
+                )}
+              </Card>
+            )
+          }
+        ]}
+      />
     </div>
   );
 };

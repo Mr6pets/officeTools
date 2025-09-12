@@ -3,18 +3,22 @@ import { Card, Upload, Button, Space, Tabs, message } from 'antd';
 import { FilePdfOutlined } from '@ant-design/icons';
 import type { UploadFile } from 'antd';
 
-const { TabPane } = Tabs;
-
 const PDFTools: React.FC = () => {
+  const tabItems = [
+    {
+      key: 'merge',
+      label: 'PDF合并',
+      children: <PDFMerger />
+    },
+    {
+      key: 'split',
+      label: 'PDF分割',
+      children: <PDFSplitter />
+    }
+  ];
+
   return (
-    <Tabs defaultActiveKey="merge">
-      <TabPane tab="PDF合并" key="merge">
-        <PDFMerger />
-      </TabPane>
-      <TabPane tab="PDF分割" key="split">
-        <PDFSplitter />
-      </TabPane>
-    </Tabs>
+    <Tabs defaultActiveKey="merge" items={tabItems} />
   );
 };
 

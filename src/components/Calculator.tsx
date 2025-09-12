@@ -1,24 +1,32 @@
 import React, { useState } from 'react';
 import { Card, Input, Button, Space, Tabs, Select, Typography, Row, Col } from 'antd';
+import type { TabsProps } from 'antd';
 import { CalculatorOutlined } from '@ant-design/icons';
 
-const { TabPane } = Tabs;
 const { Text } = Typography;
 const { Option } = Select;
 
 const Calculator: React.FC = () => {
+  const items: TabsProps['items'] = [
+    {
+      key: 'unit',
+      label: '单位转换',
+      children: <UnitConverter />,
+    },
+    {
+      key: 'tax',
+      label: '个税计算',
+      children: <TaxCalculator />,
+    },
+    {
+      key: 'loan',
+      label: '房贷计算',
+      children: <LoanCalculator />,
+    },
+  ];
+
   return (
-    <Tabs defaultActiveKey="unit">
-      <TabPane tab="单位转换" key="unit">
-        <UnitConverter />
-      </TabPane>
-      <TabPane tab="个税计算" key="tax">
-        <TaxCalculator />
-      </TabPane>
-      <TabPane tab="房贷计算" key="loan">
-        <LoanCalculator />
-      </TabPane>
-    </Tabs>
+    <Tabs defaultActiveKey="unit" items={items} />
   );
 };
 

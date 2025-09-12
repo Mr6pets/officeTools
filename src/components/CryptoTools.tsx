@@ -6,7 +6,6 @@ import CryptoJS from 'crypto-js';
 const { Title, Text } = Typography;
 const { Option } = Select;
 const { TextArea } = Input;
-const { TabPane } = Tabs;
 
 const CryptoTools: React.FC = () => {
   const { message } = App.useApp();
@@ -181,218 +180,228 @@ const CryptoTools: React.FC = () => {
     <div style={{ padding: '20px' }}>
       <Title level={2}>加密解密工具</Title>
       
-      <Tabs defaultActiveKey="crypto">
-        <TabPane tab="加密解密" key="crypto">
-          <Card>
-            {/* 算法和模式选择 */}
-            <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
-              <Col span={6}>
-                <Text strong>加密算法：</Text>
-                <Select 
-                  value={algorithm} 
-                  onChange={setAlgorithm}
-                  style={{ width: '100%', marginTop: '8px' }}
-                >
-                  <Option value="AES">AES</Option>
-                  <Option value="DES">DES</Option>
-                  <Option value="Base64">Base64</Option>
-                </Select>
-              </Col>
-              <Col span={6}>
-                <Text strong>操作模式：</Text>
-                <Select 
-                  value={mode} 
-                  onChange={setMode}
-                  style={{ width: '100%', marginTop: '8px' }}
-                >
-                  <Option value="encrypt">加密</Option>
-                  <Option value="decrypt">解密</Option>
-                </Select>
-              </Col>
-              <Col span={6}>
-                <Text strong>编码格式：</Text>
-                <Select 
-                  value={encoding} 
-                  onChange={setEncoding}
-                  style={{ width: '100%', marginTop: '8px' }}
-                >
-                  <Option value="Base64">Base64</Option>
-                  <Option value="Hex">Hex</Option>
-                  <Option value="UTF8">UTF8</Option>
-                </Select>
-              </Col>
-              <Col span={6}>
-                <Text strong>密钥操作：</Text>
-                <div style={{ marginTop: '8px' }}>
-                  <Button 
-                    icon={<KeyOutlined />}
-                    onClick={() => generateKey()}
-                    size="small"
-                  >
-                    生成密钥
-                  </Button>
-                </div>
-              </Col>
-            </Row>
-
-            {/* 密钥输入 */}
-            {algorithm !== 'Base64' && (
-              <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
-                <Col span={24}>
-                  <Text strong>密钥：</Text>
-                  <Input
-                    value={secretKey}
-                    onChange={(e) => setSecretKey(e.target.value)}
-                    placeholder="请输入密钥或点击生成密钥"
-                    style={{ marginTop: '8px' }}
-                    suffix={
+      <Tabs 
+        defaultActiveKey="crypto"
+        items={[
+          {
+            key: 'crypto',
+            label: '加密解密',
+            children: (
+              <Card>
+                {/* 算法和模式选择 */}
+                <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
+                  <Col span={6}>
+                    <Text strong>加密算法：</Text>
+                    <Select 
+                      value={algorithm} 
+                      onChange={setAlgorithm}
+                      style={{ width: '100%', marginTop: '8px' }}
+                    >
+                      <Option value="AES">AES</Option>
+                      <Option value="DES">DES</Option>
+                      <Option value="Base64">Base64</Option>
+                    </Select>
+                  </Col>
+                  <Col span={6}>
+                    <Text strong>操作模式：</Text>
+                    <Select 
+                      value={mode} 
+                      onChange={setMode}
+                      style={{ width: '100%', marginTop: '8px' }}
+                    >
+                      <Option value="encrypt">加密</Option>
+                      <Option value="decrypt">解密</Option>
+                    </Select>
+                  </Col>
+                  <Col span={6}>
+                    <Text strong>编码格式：</Text>
+                    <Select 
+                      value={encoding} 
+                      onChange={setEncoding}
+                      style={{ width: '100%', marginTop: '8px' }}
+                    >
+                      <Option value="Base64">Base64</Option>
+                      <Option value="Hex">Hex</Option>
+                      <Option value="UTF8">UTF8</Option>
+                    </Select>
+                  </Col>
+                  <Col span={6}>
+                    <Text strong>密钥操作：</Text>
+                    <div style={{ marginTop: '8px' }}>
                       <Button 
-                        type="link" 
-                        icon={<CopyOutlined />}
-                        onClick={() => copyToClipboard(secretKey)}
-                        disabled={!secretKey}
+                        icon={<KeyOutlined />}
+                        onClick={() => generateKey()}
+                        size="small"
+                      >
+                        生成密钥
+                      </Button>
+                    </div>
+                  </Col>
+                </Row>
+
+                {/* 密钥输入 */}
+                {algorithm !== 'Base64' && (
+                  <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
+                    <Col span={24}>
+                      <Text strong>密钥：</Text>
+                      <Input
+                        value={secretKey}
+                        onChange={(e) => setSecretKey(e.target.value)}
+                        placeholder="请输入密钥或点击生成密钥"
+                        style={{ marginTop: '8px' }}
+                        suffix={
+                          <Button 
+                            type="link" 
+                            icon={<CopyOutlined />}
+                            onClick={() => copyToClipboard(secretKey)}
+                            disabled={!secretKey}
+                          />
+                        }
                       />
-                    }
-                  />
-                </Col>
-              </Row>
-            )}
-
-            {/* 输入文本 */}
-            <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
-              <Col span={24}>
-                <Text strong>输入文本：</Text>
-                <TextArea
-                  value={inputText}
-                  onChange={(e) => setInputText(e.target.value)}
-                  placeholder={`请输入要${mode === 'encrypt' ? '加密' : '解密'}的文本`}
-                  rows={6}
-                  style={{ marginTop: '8px' }}
-                />
-              </Col>
-            </Row>
-
-            {/* 操作按钮 */}
-            <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
-              <Col span={24} style={{ textAlign: 'center' }}>
-                <Space>
-                  <Button 
-                    type="primary" 
-                    onClick={handleCrypto}
-                    disabled={!inputText.trim()}
-                  >
-                    {mode === 'encrypt' ? '加密' : '解密'}
-                  </Button>
-                  <Button onClick={clearAll}>
-                    清空
-                  </Button>
-                </Space>
-              </Col>
-            </Row>
-
-            {/* 输出文本 */}
-            <Row gutter={[16, 16]}>
-              <Col span={24}>
-                <Text strong>输出结果：</Text>
-                <TextArea
-                  value={outputText}
-                  readOnly
-                  rows={6}
-                  style={{ marginTop: '8px' }}
-                />
-                {outputText && (
-                  <div style={{ marginTop: '8px', textAlign: 'right' }}>
-                    <Button 
-                      type="link" 
-                      icon={<CopyOutlined />}
-                      onClick={() => copyToClipboard(outputText)}
-                    >
-                      复制结果
-                    </Button>
-                  </div>
+                    </Col>
+                  </Row>
                 )}
-              </Col>
-            </Row>
-          </Card>
-        </TabPane>
 
-        <TabPane tab="哈希计算" key="hash">
-          <Card>
-            {/* 哈希算法选择 */}
-            <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
-              <Col span={12}>
-                <Text strong>哈希算法：</Text>
-                <Select 
-                  value={hashAlgorithm} 
-                  onChange={setHashAlgorithm}
-                  style={{ width: '100%', marginTop: '8px' }}
-                >
-                  <Option value="MD5">MD5</Option>
-                  <Option value="SHA1">SHA1</Option>
-                  <Option value="SHA256">SHA256</Option>
-                  <Option value="SHA512">SHA512</Option>
-                </Select>
-              </Col>
-            </Row>
+                {/* 输入文本 */}
+                <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
+                  <Col span={24}>
+                    <Text strong>输入文本：</Text>
+                    <TextArea
+                      value={inputText}
+                      onChange={(e) => setInputText(e.target.value)}
+                      placeholder={`请输入要${mode === 'encrypt' ? '加密' : '解密'}的文本`}
+                      rows={6}
+                      style={{ marginTop: '8px' }}
+                    />
+                  </Col>
+                </Row>
 
-            {/* 输入文本 */}
-            <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
-              <Col span={24}>
-                <Text strong>输入文本：</Text>
-                <TextArea
-                  value={hashInput}
-                  onChange={(e) => setHashInput(e.target.value)}
-                  placeholder="请输入要计算哈希的文本"
-                  rows={6}
-                  style={{ marginTop: '8px' }}
-                />
-              </Col>
-            </Row>
+                {/* 操作按钮 */}
+                <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
+                  <Col span={24} style={{ textAlign: 'center' }}>
+                    <Space>
+                      <Button 
+                        type="primary" 
+                        onClick={handleCrypto}
+                        disabled={!inputText.trim()}
+                      >
+                        {mode === 'encrypt' ? '加密' : '解密'}
+                      </Button>
+                      <Button onClick={clearAll}>
+                        清空
+                      </Button>
+                    </Space>
+                  </Col>
+                </Row>
 
-            {/* 操作按钮 */}
-            <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
-              <Col span={24} style={{ textAlign: 'center' }}>
-                <Space>
-                  <Button 
-                    type="primary" 
-                    onClick={calculateHash}
-                    disabled={!hashInput.trim()}
-                  >
-                    计算哈希
-                  </Button>
-                  <Button onClick={() => { setHashInput(''); setHashOutput(''); }}>
-                    清空
-                  </Button>
-                </Space>
-              </Col>
-            </Row>
-
-            {/* 哈希结果 */}
-            <Row gutter={[16, 16]}>
-              <Col span={24}>
-                <Text strong>哈希结果：</Text>
-                <Input.TextArea
-                  value={hashOutput}
-                  readOnly
-                  rows={4}
-                  style={{ marginTop: '10px' }}
-                />
-                {hashOutput && (
-                  <div style={{ marginTop: '8px', textAlign: 'right' }}>
-                    <Button 
-                      type="link" 
-                      icon={<CopyOutlined />}
-                      onClick={() => copyToClipboard(hashOutput)}
+                {/* 输出文本 */}
+                <Row gutter={[16, 16]}>
+                  <Col span={24}>
+                    <Text strong>输出结果：</Text>
+                    <TextArea
+                      value={outputText}
+                      readOnly
+                      rows={6}
+                      style={{ marginTop: '8px' }}
+                    />
+                    {outputText && (
+                      <div style={{ marginTop: '8px', textAlign: 'right' }}>
+                        <Button 
+                          type="link" 
+                          icon={<CopyOutlined />}
+                          onClick={() => copyToClipboard(outputText)}
+                        >
+                          复制结果
+                        </Button>
+                      </div>
+                    )}
+                  </Col>
+                </Row>
+              </Card>
+            )
+          },
+          {
+            key: 'hash',
+            label: '哈希计算',
+            children: (
+              <Card>
+                {/* 哈希算法选择 */}
+                <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
+                  <Col span={12}>
+                    <Text strong>哈希算法：</Text>
+                    <Select 
+                      value={hashAlgorithm} 
+                      onChange={setHashAlgorithm}
+                      style={{ width: '100%', marginTop: '8px' }}
                     >
-                      复制哈希结果
-                    </Button>
-                  </div>
-                )}
-              </Col>
-            </Row>
-          </Card>
-        </TabPane>
-      </Tabs>
+                      <Option value="MD5">MD5</Option>
+                      <Option value="SHA1">SHA1</Option>
+                      <Option value="SHA256">SHA256</Option>
+                      <Option value="SHA512">SHA512</Option>
+                    </Select>
+                  </Col>
+                </Row>
+
+                {/* 输入文本 */}
+                <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
+                  <Col span={24}>
+                    <Text strong>输入文本：</Text>
+                    <TextArea
+                      value={hashInput}
+                      onChange={(e) => setHashInput(e.target.value)}
+                      placeholder="请输入要计算哈希的文本"
+                      rows={6}
+                      style={{ marginTop: '8px' }}
+                    />
+                  </Col>
+                </Row>
+
+                {/* 操作按钮 */}
+                <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
+                  <Col span={24} style={{ textAlign: 'center' }}>
+                    <Space>
+                      <Button 
+                        type="primary" 
+                        onClick={calculateHash}
+                        disabled={!hashInput.trim()}
+                      >
+                        计算哈希
+                      </Button>
+                      <Button onClick={() => { setHashInput(''); setHashOutput(''); }}>
+                        清空
+                      </Button>
+                    </Space>
+                  </Col>
+                </Row>
+
+                {/* 哈希结果 */}
+                <Row gutter={[16, 16]}>
+                  <Col span={24}>
+                    <Text strong>哈希结果：</Text>
+                    <Input.TextArea
+                      value={hashOutput}
+                      readOnly
+                      rows={4}
+                      style={{ marginTop: '10px' }}
+                    />
+                    {hashOutput && (
+                      <div style={{ marginTop: '8px', textAlign: 'right' }}>
+                        <Button 
+                          type="link" 
+                          icon={<CopyOutlined />}
+                          onClick={() => copyToClipboard(hashOutput)}
+                        >
+                          复制哈希结果
+                        </Button>
+                      </div>
+                    )}
+                  </Col>
+                </Row>
+              </Card>
+            )
+          }
+        ]}
+      />
     </div>
   );
 };

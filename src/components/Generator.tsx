@@ -4,22 +4,28 @@ import { Card, Button, Input, Space, Checkbox, Typography, Tabs, message, Select
 import { CopyOutlined, ReloadOutlined } from '@ant-design/icons';
 
 const { Text } = Typography;
-const { TabPane } = Tabs;
 
 const Generator: React.FC = () => {
+  const tabItems = [
+    {
+      key: 'password',
+      label: '🔐 密码生成',
+      children: <PasswordGenerator />
+    },
+    {
+      key: 'uuid',
+      label: '🆔 UUID生成',
+      children: <UUIDGenerator />
+    },
+    {
+      key: 'random',
+      label: '📊 随机数据',
+      children: <RandomDataGenerator />
+    }
+  ];
+
   return (
-    // 移除错误的style属性
-    <Tabs defaultActiveKey="password">
-      <TabPane tab="🔐 密码生成" key="password">
-        <PasswordGenerator />
-      </TabPane>
-      <TabPane tab="🆔 UUID生成" key="uuid">
-        <UUIDGenerator />
-      </TabPane>
-      <TabPane tab="📊 随机数据" key="random">
-        <RandomDataGenerator />
-      </TabPane>
-    </Tabs>
+    <Tabs defaultActiveKey="password" items={tabItems} />
   );
 };
 
